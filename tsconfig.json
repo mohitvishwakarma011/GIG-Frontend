@@ -3,6 +3,7 @@
 {
   "compileOnSave": false,
   "compilerOptions": {
+    "strict": false,
     "baseUrl": "./",
     "ignoreDeprecations": "6.0",
     "noImplicitOverride": true,

@@ -1,17 +1,16 @@
 import { inject, Injectable } from "@angular/core";
-import { Constants } from "./constants";
+import { MatSnackBar, MatSnackBarHorizontalPosition, MatSnackBarVerticalPosition } from '@angular/material/snack-bar';
 import { jwtDecode } from 'jwt-decode';
-import { MatSnackBar } from '@angular/material/snack-bar';
+import { ToastrService } from "ngx-toastr";
 import { AppDate } from "./app.date";
-import { FormGroup } from "@angular/forms";
+import { Constants } from "./constants";
 
 @Injectable({
     providedIn: 'root'
 })
 export class AppUtils {
-
     private readonly _snackbar = inject(MatSnackBar);
-
+    constructor(private readonly _toastr: ToastrService) { }
     public isUserAuthenticated(): boolean {
         var tokenItem = this._getToken();
         if (this.isNullOrEmpty(tokenItem)) return false;
@@ -43,15 +42,29 @@ export class AppUtils {
         return true;
     }
 
-    public ShowSnackbar(message: string, action: string = Constants.snackbarDefaultActionString): void {
-        this._snackbar.open(message, action);
+    public ShowSnackbar(message: string, action: string = Constants.snackbarDefault.actionString): void {
+        this._snackbar.open(message, action, {
+            horizontalPosition: Constants.snackbarDefault.positionRight as MatSnackBarHorizontalPosition,
+            verticalPosition: Constants.snackbarDefault.positionTop as MatSnackBarVerticalPosition
+        });
     }
 
-    public ShowFormErrors(formGroup: FormGroup): void {
-        
+    public showErrors(errors: IErrorResponse[]): void {
+        errors.forEach(error => {
+            this._toastr.error(error.message);
+        });
     }
 
-    private _getToken():string{
-        return localStorage.getItem(Constants.tokenKey) ?? '';
+    private _getToken(): string {
+        return localStorage.getItem(Constants.accessTokenKey) ?? '';
     }
+
+    public getAccessTokenExpiry(): Date {
+        const decodedToken: any = this.getDecodedToken();
+        return AppDate.unixToDate(decodedToken.exp);
+    }
+}
+
+interface IErrorResponse {
+    message: string;
 }
