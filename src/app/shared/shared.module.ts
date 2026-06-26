@@ -2,24 +2,30 @@ import { CommonModule } from "@angular/common";
 import { NgModule } from "@angular/core";
 import { ReactiveFormsModule } from "@angular/forms";
 import { MatButtonModule } from '@angular/material/button';
+import { MatDialogModule } from "@angular/material/dialog";
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
-import { BrowserModule } from "@angular/platform-browser";
+import { MatMenuModule } from "@angular/material/menu";
+import { MatSelectModule } from '@angular/material/select';
 import { RouterModule } from "@angular/router";
 import { LayoutComponent } from "./components";
+import { NavbarComponent } from "./components/navbar/navbar.component";
 import { ResourceNotFoundComponent } from './components/resource-not-found/resource-not-found.component';
-
 @NgModule({
     imports: [
         MatFormFieldModule,
         MatButtonModule,
         RouterModule,
         CommonModule,
-        ReactiveFormsModule
+        ReactiveFormsModule,
+        MatMenuModule,
+        MatSelectModule,
+        MatDialogModule
     ],
     declarations: [
         LayoutComponent,
-        ResourceNotFoundComponent
+        ResourceNotFoundComponent,
+        NavbarComponent
     ],
     exports: [
         LayoutComponent,
@@ -29,7 +35,10 @@ import { ResourceNotFoundComponent } from './components/resource-not-found/resou
         MatInputModule,
         RouterModule,
         CommonModule,
-        ReactiveFormsModule
+        ReactiveFormsModule,
+        MatMenuModule,
+        MatSelectModule,
+        MatDialogModule
     ]
 })
 export class SharedModule {

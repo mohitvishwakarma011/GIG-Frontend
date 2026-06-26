@@ -1,0 +1,34 @@
+<div class="auth-wrapper">
+  <main class="auth-card">
+    <header class="auth-header">
+      <h2>Welcome Back</h2>
+      <p class="subtitle">Enter your credentials to access your invoice dashboard.</p>
+    </header>
+
+    <form [formGroup]="loginForm" (ngSubmit)="onSubmit()" novalidate>
+
+      <div>
+        <mat-form-field appearance="outline">
+          <mat-label>Email</mat-label>
+          <input matInput type="email" [formControlName]="LoginFormKey.EMAIL" />
+          <mat-error *ngIf="(loginForm.controls[LoginFormKey.EMAIL].errors?.['required']) || (loginForm.controls[LoginFormKey.EMAIL].errors?.['email'])">Please enter a valid email</mat-error>
+        </mat-form-field>
+      </div>
+
+      <div>
+        <mat-form-field appearance="outline">
+          <mat-label>Password</mat-label>
+          <input matInput type="password" [formControlName]="LoginFormKey.PASSWORD" />
+          <mat-error *ngIf="loginForm.controls[LoginFormKey.PASSWORD].errors?.['required']">Please enter password</mat-error>
+        </mat-form-field>
+      </div>
+
+      <div>
+        Don't have an account? <span class="link cursor-pointer" routerLink="/auth/sign-up">Create one</span>
+      </div>
+      <button type="submit" class="auth-btn">
+        Log In
+      </button>
+    </form>
+  </main>
+</div>

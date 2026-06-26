@@ -4,22 +4,35 @@ import { jwtDecode } from 'jwt-decode';
 import { ToastrService } from "ngx-toastr";
 import { AppDate } from "./app.date";
 import { Constants } from "./constants";
+import { BehaviorSubject, Observable } from "rxjs";
 
 @Injectable({
     providedIn: 'root'
 })
 export class AppUtils {
     private readonly _snackbar = inject(MatSnackBar);
-    constructor(private readonly _toastr: ToastrService) { }
+    private readonly authenticateSubject = new BehaviorSubject<boolean>(this.isUserAuthenticated());
+
+    constructor(private readonly _toastr: ToastrService) {
+    }
+
     public isUserAuthenticated(): boolean {
         var tokenItem = this._getToken();
         if (this.isNullOrEmpty(tokenItem)) return false;
         else {
             var decodedToken: any = this.getDecodedToken();
-            if (AppDate.unixToDate(decodedToken.exp) < AppDate.getCurrentDate())
+            if (AppDate.unixToDate(decodedToken.exp) > AppDate.getCurrentDate())
                 return true;
             else return false;
         }
+    }
+
+    public isAuthenticatedSubject(): Observable<boolean> {
+        return this.authenticateSubject.asObservable();
+    }
+
+    public setAuthenticatedSubject(data: boolean = false): void {
+        this.authenticateSubject.next(data);
     }
 
     public isNullOrEmpty(value: string): boolean {
@@ -67,4 +80,11 @@ export class AppUtils {
 
 interface IErrorResponse {
     message: string;
+}
+
+export interface IUserDto {
+    isAuthenticated: boolean;
+    ComapyName: string;
+    Gstin: string;
+    email: string;
 }

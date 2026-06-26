@@ -3,9 +3,10 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ToastrService } from 'ngx-toastr';
 import { catchError, of, tap } from 'rxjs';
 import { AppUtils } from 'src/app/helpers/app.utils';
-import { FormKey } from '../entities/entities';
-import { AuthService, ILoginDto, ILoginResponseDto } from '../services/auth.service';
+import { FormKey } from '../../entities/entities';
+import { AuthService, ILoginDto, ILoginResponseDto } from '../../services/auth.service';
 import { Constants } from 'src/app/helpers/constants';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-login',
@@ -20,13 +21,15 @@ export class LoginComponent {
   constructor(private readonly _fb: FormBuilder,
     private readonly _appUtils: AppUtils,
     private readonly _authService: AuthService,
-    private readonly _toastr: ToastrService
+    private readonly _toastr: ToastrService,
+    private readonly _router: Router
   ) { }
 
   public ngOnInit(): void {
+    this._ifUserAuthenticated();
     this.loginForm = this._fb.group({
       [FormKey.EMAIL]: ['', [Validators.required, Validators.email]],
-      [FormKey.PASSWORD]: ['', [Validators.required, Validators.minLength(6)]]
+      [FormKey.PASSWORD]: ['', [Validators.required]]
     });
   }
 
@@ -41,6 +44,7 @@ export class LoginComponent {
       .pipe(
         tap(data => {
           this._saveAuthResponse(data);
+          this._router.navigate(['/dashboard/home'])
         }),
         catchError(err => {
           console.error('Login error:', err);
@@ -53,15 +57,22 @@ export class LoginComponent {
   private _getFormValue(): ILoginDto {
     const value = this.loginForm.value;
     return {
-      Email: value[FormKey.EMAIL],
-      Password: value[FormKey.PASSWORD]
+      email: value[FormKey.EMAIL],
+      password: value[FormKey.PASSWORD]
     }
   }
 
-  private _saveAuthResponse(res:ILoginResponseDto):void{
+  private _saveAuthResponse(res: ILoginResponseDto): void {
     //save AuthToken
-    localStorage.setItem(Constants.accessTokenKey,res.accessToken);
-    localStorage.setItem(Constants.refreshTokenKey,res.refreshToken);
-    localStorage.setItem(Constants.refreshTokenExpiry,res.refreshTokenExpiry.toString());
+    localStorage.setItem(Constants.accessTokenKey, res.accessToken);
+    localStorage.setItem(Constants.refreshTokenKey, res.refreshToken);
+    localStorage.setItem(Constants.refreshTokenExpiry, res.refreshTokenExpiry.toString());
+    this._appUtils.setAuthenticatedSubject(true);
+  }
+
+  private _ifUserAuthenticated(): void {
+    if (this._appUtils.isUserAuthenticated()) {
+      this._router.navigate(['/dashboard/home']);
+    }
   }
 }

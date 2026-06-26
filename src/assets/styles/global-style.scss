@@ -1,13 +1,237 @@
 @use './variable';
-*{
-    background: transparent;
+
+* {
+  // background: transparent;
 }
 
-html,body {
+html,
+body {
   scrollbar-width: thin;
   padding: 0;
   margin: 0;
   background: var(--app-bg);
   height: 100%;
   width: 100%;
+  color: var(--app-text-primary);
+}
+
+.fi {
+  font-size: 22px;
+  color: var(--flat-icon-default) !important;
+
+  &:hover {
+    color: var(--flat-icon-hover) !important;
+  }
+}
+
+.cursor-pointer {
+  cursor: pointer;
+}
+
+.main-section {
+  padding-top: 70px;
+  background-color: var(--app-bg);
+  height: 100%;
+}
+
+.link {
+  color: var(--app-link);
+}
+
+//Auth components scss
+.auth-wrapper {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  background-color: var(--app-bg);
+}
+
+.auth-card {
+  background-color: var(--primary-foreground); // White fallback base
+  border: 1px solid var(--app-rule);
+  border-radius: 8px;
+  padding: 2.5rem;
+  width: 100%;
+  max-width: 420px;
+  box-shadow: 0 4px 12px rgba(35, 38, 46, 0.03); // Subtle shadow using text color
+}
+
+.auth-header {
+  margin-bottom: 2rem;
+  text-align: center;
+
+  h2 {
+    color: var(--app-text-primary);
+    font-size: 1.75rem;
+    font-weight: 600;
+    margin: 0 0 0.5rem 0;
+  }
+
+  .subtitle {
+    color: var(--muted-foreground);
+    font-size: 0.875rem;
+    margin: 0;
+    line-height: 1.4;
+  }
+}
+
+.auth-btn {
+  background-color: var(--primary);
+  color: var(--primary-foreground);
+  border: none;
+  border-radius: 6px;
+  width: 100%;
+  padding: 0.875rem;
+  font-size: 0.95rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: opacity 0.2s ease;
+  margin-top: 0.5rem;
+
+  &:hover:not(:disabled) {
+    opacity: 0.9;
+  }
+
+  &:disabled {
+    background-color: var(--app-muted-rule);
+    color: var(--muted-foreground);
+    cursor: not-allowed;
+  }
+}
+
+@media(max-width: 576px) {
+  .auth-wrapper {
+    margin: 0 16px;
+  }
+}
+
+//Buttons
+.btn-primary{
+  background-color: var(--primary);
+  color: var(--primary-foreground);
+  border: none;
+  border-radius: 6px;
+  padding: 0.875rem;
+  font-size: 0.95rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: opacity 0.2s ease;
+  margin-top: 0.5rem;
+
+  &:hover:not(:disabled) {
+    opacity: 0.9;
+  }
+
+  &:disabled {
+    background-color: var(--app-muted-rule);
+    color: var(--muted-foreground);
+    cursor: not-allowed;
+  }
+}
+
+//Overrides
+
+//Mat Menu
+.mat-mdc-menu-panel {
+  border-radius: 8px !important;
+
+  .mat-mdc-menu-content {
+    background-color: var(--app-bg) !important;
+    border-radius: 8px !important;
+  }
+}
+
+mat-form-field[appearance="outline"] {
+  width: 100%;
+  margin-bottom: var(--app-margin, 16px);
+
+  // 1. Structural body background layout with your frosted glass tokens
+  .mat-mdc-text-field-wrapper {
+    background-color: var(--app-transparent-bg, rgba(248, 245, 236, 0.35)) !important;
+    backdrop-filter: blur(var(--default-blur, 8px)) !important;
+    -webkit-backdrop-filter: blur(var(--default-blur, 8px)) !important;
+    transition: background-color 0.25s ease, box-shadow 0.25s ease !important;
+    // Custom Structural Adjustments
+    border-radius: 10px !important; // 👈 Set your desired outer border-radius here
+    padding: 0 14px !important;
+  }
+
+  // 2. Structural boundary line parameters mapped to your rule system variable
+  .mdc-notched-outline__leading,
+  .mdc-notched-outline__notch,
+  .mdc-notched-outline__trailing {
+    border-color: var(--app-rule, #DAD5C8) !important;
+    transition: border-color 0.2s ease !important;
+  }
+
+  // 3. Inactive typography labels matching your helper foreground token
+  .mdc-floating-label {
+    color: var(--muted-foreground, #6B7280) !important;
+  }
+
+  // 4. Hover State Changes
+  &:hover {
+    .mat-mdc-text-field-wrapper {
+      background-color: rgba(248, 245, 236, 0.55) !important;
+    }
+
+    .mdc-notched-outline__leading,
+    .mdc-notched-outline__notch,
+    .mdc-notched-outline__trailing {
+      border-color: var(--primary, #2A2F3D) !important;
+    }
+  }
+
+  // 5. Active Selected Focus Parameters (Bound directly to your deep blue brand stamp)
+  &.mat-form-field-focused {
+    .mat-mdc-text-field-wrapper {
+      background-color: rgba(248, 245, 236, 0.75) !important;
+      box-shadow: var(--default-box-shadow, 0 4px 30px rgba(0, 0, 0, 0.03)) !important;
+    }
+
+    .mdc-notched-outline__leading,
+    .mdc-notched-outline__notch,
+    .mdc-notched-outline__trailing {
+      border-color: var(--app-stamp, #3E3A8C) !important;
+      border-width: 2px !important;
+    }
+
+    .mdc-floating-label {
+      color: var(--app-stamp, #3E3A8C) !important;
+    }
+  }
+
+  // 6. Native input user text configuration matching your primary text token
+  input.mat-mdc-input-element {
+    color: var(--app-text-primary, #23262E) !important;
+    font-weight: 500;
+  }
+
+  // 7. Error Rule Adjustments (Bound securely to your destructive token)
+  &.mat-form-field-invalid {
+
+    .mdc-notched-outline__leading,
+    .mdc-notched-outline__notch,
+    .mdc-notched-outline__trailing {
+      border-color: var(--destructive, #DC2626) !important;
+    }
+
+    .mdc-floating-label {
+      color: var(--destructive, #DC2626) !important;
+    }
+
+    mat-error {
+      color: var(--destructive, #DC2626);
+    }
+  }
+}
+
+.mat-mdc-select-panel-above {
+  background: var(--app-bg);
+}
+
+//Mat Dialog
+.mat-mdc-dialog-surface.mdc-dialog__surface {
+  padding: 30px;
 }

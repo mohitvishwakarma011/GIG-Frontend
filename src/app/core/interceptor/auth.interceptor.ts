@@ -1,49 +1,70 @@
-import { HttpInterceptorFn } from "@angular/common/http";
-import { inject } from "@angular/core";
-import { Router } from "@angular/router";
-import { ToastrService } from "ngx-toastr";
-import { catchError, of, tap } from "rxjs";
-import { AuthService } from "src/app/features/auth/services/auth.service";
-import { AppUtils } from "src/app/helpers/app.utils";
-import { Constants } from "src/app/helpers/constants";
+import {
+    HttpEvent,
+    HttpHandler,
+    HttpInterceptor,
+    HttpRequest
+} from '@angular/common/http';
+import { Injectable } from '@angular/core';
+import { Router } from '@angular/router';
+import { ToastrService } from 'ngx-toastr';
+import { Observable, of } from 'rxjs';
+import { catchError, tap } from 'rxjs/operators';
+import { AuthService } from 'src/app/features/auth/services/auth.service';
+import { AppUtils } from 'src/app/helpers/app.utils';
+import { Constants } from 'src/app/helpers/constants';
 
+@Injectable()
+export class AuthInterceptor implements HttpInterceptor {
+  
+  // Dependencies are cleanly injected through the constructor
+  constructor(
+    private readonly _appUtils: AppUtils,
+    private readonly _router: Router,
+    private readonly _toastr: ToastrService,
+    private readonly _authService: AuthService
+  ) {}
 
-export const authInterceptor: HttpInterceptorFn = (req, next) => {
-    const appUtils = inject(AppUtils);
-    const router = inject(Router);
-    const toastr = inject(ToastrService);
-    const authService = inject(AuthService);
-
-    if (appUtils.CheckTokenExists()) {
+  public intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
+    
+    if (this._appUtils.CheckTokenExists()) {
         const token = localStorage.getItem(Constants.accessTokenKey) ?? '';
+        
         const authReq = req.clone({
             headers: req.headers.set('Authorization', `Bearer ${token}`)
         });
-        return next(authReq).pipe(catchError(res => {
+
+        return next.handle(authReq).pipe(
+          catchError(res => {
             if (res.status === 401) {
                 const refreshToken = localStorage.getItem(Constants.refreshTokenKey);
-                if ((!refreshToken) || appUtils.isNullOrEmpty(refreshToken)) {
-                    toastr.error("Session expired. Please login again.");
-                    router.navigate(['/login']);
+                
+                if (!refreshToken || this._appUtils.isNullOrEmpty(refreshToken)) {
+                    this._toastr.error("Session expired. Please login again.");
+                    localStorage.clear();
+                    this._router.navigate(['auth/login']);
                 } else {
                     // Attempt to refresh the token
-                    authService.refreshToken()
-                        .pipe(tap(data => {
-                            {
-                                localStorage.setItem(Constants.accessTokenKey, res.accessToken);
-                                localStorage.setItem(Constants.refreshTokenKey, res.refreshToken);
-                                localStorage.setItem(Constants.refreshTokenExpiry, res.refreshTokenExpiry.toString());
-                            }
+                    this._authService.refreshAccessToken().pipe(
+                        tap(data => {
+                            // Note: In your original snippet, 'res' was used here by mistake instead of 'data'
+                            localStorage.setItem(Constants.accessTokenKey, data.accessToken);
+                            localStorage.setItem(Constants.refreshTokenKey, data.refreshToken);
+                            localStorage.setItem(Constants.refreshTokenExpiry, data.refreshTokenExpiry.toString());
                         }),
-                            catchError(err => {
-                                appUtils.showErrors(err.error);
-                                router.navigate(['/login']);
-                                return of(null);
-                            })).subscribe();
+                        catchError(err => {
+                            this._appUtils.showErrors(err.error);
+                            localStorage.clear();
+                            this._router.navigate(['/login']);
+                            return of(null);
+                        })
+                    ).subscribe();
                 }
             }
             return of(res);
-        }));
+          })
+        );
     }
-    return next(req);
+
+    return next.handle(req);
+  }
 }

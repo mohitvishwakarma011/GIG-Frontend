@@ -1,6 +1,6 @@
 import { HttpClient } from "@angular/common/http";
 import { Injectable } from "@angular/core";
-import { map, Observable } from "rxjs";
+import { map, Observable, tap } from "rxjs";
 import { AppDate } from "src/app/helpers/app.date";
 import { Constants } from "src/app/helpers/constants";
 import { environment } from "src/environments/environment";
@@ -17,12 +17,19 @@ export class AuthService {
             }));
     }
 
-    public refreshToken(): Observable<ILoginResponseDto> {
+    public refreshAccessToken(): Observable<ILoginResponseDto> {
         const refreshToken = localStorage.getItem(Constants.refreshTokenKey);
         return this.http.post<ILoginResponse>(`${this.rootEndpoint}/refresh`, { refreshToken })
             .pipe(map(data => {
                 return toLoginResponseDto(data);
             }));
+    }
+
+    public signupUser(dto: ISignUpDto): Observable<number> {
+        return this.http.post<number>(`${this.rootEndpoint}/register`, dto)
+            .pipe(tap(data => {
+                return data;
+            }))
     }
 }
 
@@ -33,6 +40,8 @@ const toLoginResponseDto = (response: ILoginResponse): ILoginResponseDto => {
     }
 }
 
+
+//Log In
 interface ILoginResponseBase {
     accessToken: string;
     businessName: string;
@@ -49,6 +58,16 @@ export interface ILoginResponseDto extends ILoginResponseBase {
 }
 
 export interface ILoginDto {
-    Email: string;
-    Password: string;
+    email: string;
+    password: string;
+}
+
+//Sign UP
+export interface ISignUpDto {
+    email: string;
+    password: string;
+    businessName: string;
+    gstin: string;
+    address: string;
+    stateId: number;
 }

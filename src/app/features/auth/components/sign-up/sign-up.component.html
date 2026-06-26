@@ -1,0 +1,98 @@
+<div class="login-wrapper">
+  <main class="login-card">
+    <header class="login-header">
+      <h2>Welcome</h2>
+    </header>
+
+    <form [formGroup]="signUpForm" (ngSubmit)="onSubmit()" novalidate>
+
+      <div>
+        <mat-form-field appearance="outline">
+          <mat-label>Email</mat-label>
+          <input matInput type="email" [formControlName]="FormKey.EMAIL" />
+          <mat-error
+            *ngIf="(signUpForm.controls[FormKey.EMAIL].errors?.['required']) || (signUpForm.controls[FormKey.EMAIL].errors?.['email'])">Please
+            enter a valid email</mat-error>
+        </mat-form-field>
+      </div>
+
+      <div>
+        <mat-form-field appearance="outline">
+          <mat-label>Password</mat-label>
+          <input matInput type="password" [formControlName]="FormKey.PASSWORD" />
+          <mat-error *ngIf="(signUpForm.controls[FormKey.PASSWORD].errors?.['required'])">Please
+            enter password</mat-error>
+          <mat-error *ngIf="(signUpForm.controls[FormKey.PASSWORD].errors?.['minlength'])">Password must be 6 characters
+            long</mat-error>
+          <mat-error
+            *ngIf="(signUpForm.controls[FormKey.PASSWORD].errors?.['pattern']) && !signUpForm.controls[FormKey.PASSWORD].errors?.['minlength']">Passoword
+            must match the
+            pattern</mat-error>
+        </mat-form-field>
+      </div>
+      <div>
+        <mat-form-field appearance="outline">
+          <mat-label>Confirm Password</mat-label>
+          <input matInput type="password" [formControlName]="FormKey.REENTERPASSWORD" />
+          @if (signUpForm.controls[FormKey.REENTERPASSWORD].hasError('required')) {
+          <mat-error>Please confirm your password</mat-error>
+          }
+          @else if (signUpForm.controls[FormKey.REENTERPASSWORD].hasError('passwordMismatch')) {
+          <mat-error>Passwords do not match</mat-error>
+          }
+        </mat-form-field>
+      </div>
+
+      <div>
+        <mat-form-field appearance="outline">
+          <mat-label>Business Name</mat-label>
+          <input matInput type="text" [formControlName]="FormKey.BUSINESSNAME" />
+          <mat-error *ngIf="(signUpForm.controls[FormKey.BUSINESSNAME].errors?.['required'])">Please
+            enter business name</mat-error>
+        </mat-form-field>
+      </div>
+      <div>
+        <mat-form-field appearance="outline">
+          <mat-label>GSTIN</mat-label>
+          <input matInput type="text" [formControlName]="FormKey.GSTIN" />
+          <mat-error *ngIf="(signUpForm.controls[FormKey.GSTIN].errors?.['required'])">Please
+            enter GSTIN</mat-error>
+          <mat-error *ngIf="(signUpForm.controls[FormKey.GSTIN].errors?.['invalidGSTIN'])">Format should be
+            '07AAAAA1111A1Z2'</mat-error>
+        </mat-form-field>
+      </div>
+      <div>
+        <mat-form-field appearance="outline">
+          <mat-label>Billing Address</mat-label>
+          <input matInput type="text" [formControlName]="FormKey.ADDRESS" />
+          <mat-error *ngIf="signUpForm.controls[FormKey.ADDRESS].hasError('required')">
+            Please enter billing address
+          </mat-error>
+        </mat-form-field>
+      </div>
+      <div>
+        <mat-form-field appearance="outline">
+          <mat-label>State</mat-label>
+          <mat-select [formControlName]="FormKey.STATE">
+            @for (state of states; track state) {
+            <mat-option [value]="state.code">{{state.name}}</mat-option>
+            }
+          </mat-select>
+          @if (signUpForm.controls[FormKey.STATE].hasError('required')) {
+          <mat-error>Please select a state</mat-error>
+          }
+          @else if (signUpForm.controls[FormKey.STATE].hasError('greaterThanZero')) {
+          <mat-error>Please select a valid state from the list</mat-error>
+          }
+        </mat-form-field>
+      </div>
+
+      <div>
+        Already have an account? <span class="link cursor-pointer" routerLink="/auth/login">Log In</span>
+      </div>
+      <button type="submit" class="btn-primary">
+        Sign Up
+      </button>
+    </form>
+  </main>
+</div>

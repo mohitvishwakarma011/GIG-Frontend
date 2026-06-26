@@ -1,0 +1,45 @@
+<nav class="app-navbar">
+  <div class="navbar-container">
+
+    <div class="navbar-brand" routerLink="/home">
+      <span class="brand-logo">GI</span>
+      <span class="brand-name">Invoice Hub</span>
+    </div>
+
+    <div class="navbar-links">
+      <a routerLink="/home" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">
+        Dashboard
+      </a>
+      <a routerLink="/invoices" routerLinkActive="active">
+        Invoices
+      </a>
+      <a routerLink="/categories" routerLinkActive="active">
+        Categories
+      </a>
+    </div>
+
+    <div class="navbar-actions">
+      <ng-container *ngIf="isLoggedIn">
+        <i matButton [matMenuTriggerFor]="profileMenu" class="fi fi-br-corporate cursor-pointer logo-center"></i>
+        <mat-menu #profileMenu="matMenu">
+          <button mat-menu-item>
+            <div class="d-flex align-center gap-2">
+              <i class="fi fi-rr-settings"></i><span>Settings</span>
+            </div>
+          </button>
+          <button mat-menu-item (click)="onLogout()">
+            <div class="d-flex align-center gap-2">
+              <i class="fi fi-sr-sign-out-alt"></i><span>Logout</span>
+            </div>
+          </button>
+        </mat-menu>
+      </ng-container>
+      <ng-container *ngIf="!isLoggedIn">
+        <span class="cursor-pointer" [routerLink]="'auth/login'">Log In</span>
+        <span> &nbsp; | &nbsp; </span>
+        <span class="cursor-pointer" [routerLink]="'auth/login'">Sign Up</span>
+      </ng-container>
+    </div>
+
+  </div>
+</nav>
