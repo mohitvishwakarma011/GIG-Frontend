@@ -1,0 +1,26 @@
+.paid {
+    color: var(--app-success);
+}
+
+.unpaid {
+    color: var(--app-warning);
+}
+
+.total {
+    color: var(--app-gray);
+}
+
+.revenue {
+    color: var(--app-accent);
+}
+
+.small-text{
+    font-size: 16px;
+    color: var(--text-muted);   
+}
+
+.dashboard-item{
+    .fi{
+        font-size: 16px !important;
+    }
+}

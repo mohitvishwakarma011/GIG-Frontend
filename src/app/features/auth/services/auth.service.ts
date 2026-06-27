@@ -2,13 +2,18 @@ import { HttpClient } from "@angular/common/http";
 import { Injectable } from "@angular/core";
 import { map, Observable, tap } from "rxjs";
 import { AppDate } from "src/app/helpers/app.date";
+import { AppUtils } from "src/app/helpers/app.utils";
 import { Constants } from "src/app/helpers/constants";
 import { environment } from "src/environments/environment";
 
-@Injectable()
+@Injectable({
+    providedIn: 'root'
+})
 export class AuthService {
     private readonly rootEndpoint = `${environment.apiUrl}/auth`;
-    constructor(private readonly http: HttpClient) { }
+    constructor(private readonly http: HttpClient,
+        private readonly appUtils: AppUtils
+    ) { }
 
     public loginUser(dto: ILoginDto): Observable<ILoginResponseDto> {
         return this.http.post<ILoginResponse>(`${this.rootEndpoint}/login`, dto)
@@ -30,6 +35,11 @@ export class AuthService {
             .pipe(tap(data => {
                 return data;
             }))
+    }
+
+    public logoutUser(): Observable<any> {
+        const userId = this.appUtils.getUserIdentifier();
+        return this.http.put(`${this.rootEndpoint}/logout`,{userId});
     }
 }
 

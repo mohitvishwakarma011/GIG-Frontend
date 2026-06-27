@@ -3,6 +3,12 @@ export const Constants = {
     refreshTokenKey: "refreshToken",
     refreshTokenExpiry: "refreshTokenExpiry",
 
+    dashboardItemType:{
+        total:"Total Invoices",
+        paid:"Unpaid Invoices",
+        unpaid:"Paid Invoices",
+        revenue:"Total Revenue"
+    },
     snackbarDefault: {
         actionString: "X",
         positionTop: "top",

@@ -1,6 +1,6 @@
 import { NgModule } from "@angular/core";
 import { RouterModule, Routes } from "@angular/router";
-import { DashboardComponent } from "./components/dashboard.component";
+import { DashboardComponent } from "./components/dashboard/dashboard.component";
 import { authGuard } from "src/app/core/guard/auth.guard";
 
 const routes: Routes = [

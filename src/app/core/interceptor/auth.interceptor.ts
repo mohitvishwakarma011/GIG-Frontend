@@ -22,7 +22,9 @@ export class AuthInterceptor implements HttpInterceptor {
     private readonly _router: Router,
     private readonly _toastr: ToastrService,
     private readonly _authService: AuthService
-  ) {}
+  ) {
+
+  }
 
   public intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
     

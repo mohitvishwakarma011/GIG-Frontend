@@ -76,6 +76,15 @@ export class AppUtils {
         const decodedToken: any = this.getDecodedToken();
         return AppDate.unixToDate(decodedToken.exp);
     }
+
+    public getRefreshTokenExpiry():Date{
+        return new Date(localStorage.getItem(Constants.refreshTokenExpiry));
+    }
+
+    public getUserIdentifier():number{
+        const token = this.getDecodedToken();
+        return Number(token.sub);
+    }
 }
 
 interface IErrorResponse {

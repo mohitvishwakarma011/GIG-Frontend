@@ -6,8 +6,8 @@
       <span class="brand-name">Invoice Hub</span>
     </div>
 
-    <div class="navbar-links">
-      <a routerLink="/home" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">
+    <div class="navbar-links" *ngIf="isLoggedIn">
+      <a routerLink="/dashboard/home" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">
         Dashboard
       </a>
       <a routerLink="/invoices" routerLinkActive="active">

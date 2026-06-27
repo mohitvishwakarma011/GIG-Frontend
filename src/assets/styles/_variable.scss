@@ -1,7 +1,7 @@
 body {
     --app-text-primary: #23262E;
     --app-bg: #F8F5EC;
-    --app-transparent-bg:#f8f5ec59;
+    --app-transparent-bg: #f8f5ec59;
     --app-rule: #DAD5C8;
     --app-muted-rule: #E8E4D8;
     --app-stamp: #3E3A8C;
@@ -29,4 +29,13 @@ body {
 
     //Box shadow
     --default-box-shadow: 0 4px 30px rgba(0, 0, 0, 0.03);
+
+    //colors
+    --app-white: #ffffff;
+    --app-warning: #db9300;
+    --app-success: #0ca30c;
+    --app-accent: #6da7ec;
+    --app-gray:#2a2f3dc4;
+    --app-muted:#898781;
+    
 }

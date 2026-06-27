@@ -11,6 +11,8 @@ import { RouterModule } from "@angular/router";
 import { LayoutComponent } from "./components";
 import { NavbarComponent } from "./components/navbar/navbar.component";
 import { ResourceNotFoundComponent } from './components/resource-not-found/resource-not-found.component';
+import { CardComponent } from "./components/card/card.component";
+import { DashboardItemComponent } from "./components/dashboard-item/dashboard-item.component";
 @NgModule({
     imports: [
         MatFormFieldModule,
@@ -25,7 +27,9 @@ import { ResourceNotFoundComponent } from './components/resource-not-found/resou
     declarations: [
         LayoutComponent,
         ResourceNotFoundComponent,
-        NavbarComponent
+        NavbarComponent,
+        CardComponent,
+        DashboardItemComponent
     ],
     exports: [
         LayoutComponent,
@@ -38,7 +42,9 @@ import { ResourceNotFoundComponent } from './components/resource-not-found/resou
         ReactiveFormsModule,
         MatMenuModule,
         MatSelectModule,
-        MatDialogModule
+        MatDialogModule,
+        CardComponent,
+        DashboardItemComponent
     ]
 })
 export class SharedModule {

@@ -1,0 +1,25 @@
+<section class="dashboard-item">
+    @if (item) {
+    <ngx-card>
+        <div class="d-flex align-items-center justify-content-center gap-2 text-muted small-text">
+            <i *ngIf="item.type == constants.dashboardItemType.total" class="fi fi-rr-document"></i>
+            <i *ngIf="item.type == constants.dashboardItemType.unpaid" class="fi fi-rr-clock-five"></i>
+            <i *ngIf="item.type == constants.dashboardItemType.paid" class="fi fi-rs-check-circle"></i>
+            <i *ngIf="item.type == constants.dashboardItemType.revenue" class="fi fi-rr-indian-rupee-sign"></i>
+            {{item.type}}
+        </div>
+        <div class="fs-3"
+            [ngClass]="{'paid':item.type == constants.dashboardItemType.paid,
+                        'unpaid':item.type == constants.dashboardItemType.unpaid,
+                        'total':item.type == constants.dashboardItemType.total,
+                        'revenue':item.type == constants.dashboardItemType.revenue,}">
+            {{item.type == constants.dashboardItemType.revenue ? (item.count | currency:'INR'):item.count}}
+        </div>
+        <div class="text-muted small-text">
+            {{item.description}}
+        </div>
+    </ngx-card>
+    }@else{
+    <h2>Shimmer</h2>
+    }
+</section>

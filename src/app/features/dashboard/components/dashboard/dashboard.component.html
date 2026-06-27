@@ -1,0 +1,9 @@
+<section class="pt-4 d-flex gap-2 justify-content-center flex-column">
+    <div class="d-flex gap-2 justify-content-center ">
+        @for (item of dashboardItems(); track item.type) {
+        <ngx-dashboard-item [item]="item"></ngx-dashboard-item>
+        }
+    </div>
+    <ngx-recent-invoice></ngx-recent-invoice>
+    
+</section>

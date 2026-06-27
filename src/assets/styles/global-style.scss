@@ -2,6 +2,7 @@
 
 * {
   // background: transparent;
+  box-sizing: border-box;
 }
 
 html,
@@ -24,6 +25,9 @@ body {
   }
 }
 
+.text-muted{
+  color: var(--app-muted);
+}
 .cursor-pointer {
   cursor: pointer;
 }
@@ -32,6 +36,8 @@ body {
   padding-top: 70px;
   background-color: var(--app-bg);
   height: 100%;
+  padding-left:40px;
+  padding-right:40px;
 }
 
 .link {

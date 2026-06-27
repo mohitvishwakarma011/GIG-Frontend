@@ -7,6 +7,7 @@ import { FormKey } from '../../entities/entities';
 import { AuthService, ILoginDto, ILoginResponseDto } from '../../services/auth.service';
 import { Constants } from 'src/app/helpers/constants';
 import { Router } from '@angular/router';
+import { AppDate } from 'src/app/helpers/app.date';
 
 @Component({
   selector: 'app-login',
@@ -44,7 +45,7 @@ export class LoginComponent {
       .pipe(
         tap(data => {
           this._saveAuthResponse(data);
-          this._router.navigate(['/dashboard/home'])
+          this._router.navigate(['/dashboard/home']);
         }),
         catchError(err => {
           console.error('Login error:', err);
@@ -73,6 +74,22 @@ export class LoginComponent {
   private _ifUserAuthenticated(): void {
     if (this._appUtils.isUserAuthenticated()) {
       this._router.navigate(['/dashboard/home']);
+    } else {
+      this._refreshAccessToken();
     }
+  }
+
+  private _refreshAccessToken(): void {
+    if (this._appUtils.getRefreshTokenExpiry() < AppDate.getCurrentDate())
+      return;
+
+    this._authService.refreshAccessToken().pipe(tap(data => {
+      this._saveAuthResponse(data);
+      this._router.navigate(['/dashboard/home']);
+    }),
+      catchError(err => {
+        this._toastr.error("Session has been expired. Please login!");
+        return of();
+      })).subscribe();
   }
 }
