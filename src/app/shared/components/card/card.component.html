@@ -1,3 +1,6 @@
-<section class="card">
-    <ng-content/>
+<section [class]="'card'" [ngStyle]="{
+    width: config?.width,
+    padding: config?.padding
+  }">
+    <ng-content />
 </section>

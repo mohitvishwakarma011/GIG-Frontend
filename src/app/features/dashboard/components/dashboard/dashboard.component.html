@@ -1,9 +1,16 @@
 <section class="pt-4 d-flex gap-2 justify-content-center flex-column">
-    <div class="d-flex gap-2 justify-content-center ">
-        @for (item of dashboardItems(); track item.type) {
+    <div *ngIf="isModelLoaded()" class="d-flex gap-2 justify-content-center">
+        @for (item of dashboardSummary().dashboardItems; track item.type) {
         <ngx-dashboard-item [item]="item"></ngx-dashboard-item>
         }
     </div>
     <ngx-recent-invoice></ngx-recent-invoice>
-    
+    <div class="row">
+        <div class="col-8">
+            <ngx-recent-client></ngx-recent-client>
+        </div>
+        <div class="col-4">
+            <ngx-overall-summary [data]="dashboardSummary()?.overallMonthSummary"></ngx-overall-summary>
+        </div>
+    </div>
 </section>

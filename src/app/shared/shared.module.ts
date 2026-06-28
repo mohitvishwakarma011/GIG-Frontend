@@ -13,6 +13,8 @@ import { NavbarComponent } from "./components/navbar/navbar.component";
 import { ResourceNotFoundComponent } from './components/resource-not-found/resource-not-found.component';
 import { CardComponent } from "./components/card/card.component";
 import { DashboardItemComponent } from "./components/dashboard-item/dashboard-item.component";
+import { MatTableModule } from "@angular/material/table";
+import { MatChipsModule } from "@angular/material/chips";
 @NgModule({
     imports: [
         MatFormFieldModule,
@@ -22,7 +24,9 @@ import { DashboardItemComponent } from "./components/dashboard-item/dashboard-it
         ReactiveFormsModule,
         MatMenuModule,
         MatSelectModule,
-        MatDialogModule
+        MatDialogModule,
+        MatTableModule,
+        MatChipsModule
     ],
     declarations: [
         LayoutComponent,
@@ -44,7 +48,9 @@ import { DashboardItemComponent } from "./components/dashboard-item/dashboard-it
         MatSelectModule,
         MatDialogModule,
         CardComponent,
-        DashboardItemComponent
+        DashboardItemComponent,
+        MatTableModule,
+        MatChipsModule
     ]
 })
 export class SharedModule {

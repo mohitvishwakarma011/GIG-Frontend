@@ -1,3 +1,5 @@
+import { Helpers } from "./helpers";
+
 export const Constants = {
     accessTokenKey: "accessToken",
     refreshTokenKey: "refreshToken",
@@ -13,6 +15,11 @@ export const Constants = {
         actionString: "X",
         positionTop: "top",
         positionRight: "right",
+    },
+    invoiceStatus:{
+        draft:"Draft",
+        sent:"Sent",
+        paid:"Paid"
     },
     gstinRegex: /^[0-9]{2}[A-Z]{5}[0-9]{4}[A-Z][1-9A-Z]Z[0-9A-Z]$/,
     passwordRegex: /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&^#()_+\-=\[\]{};':"\\|,.<>\/])[A-Za-z\d@$!%*?&^#()_+\-=\[\]{};':"\\|,.<>\/]{8,}$/,

@@ -1,0 +1,17 @@
+.fi-rs-arrow-up-right{
+    font-size: 12px;
+}
+
+.inv-number{
+    color: var(--app-gray);
+}
+
+.actions{
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    cursor: pointer;
+    .fi{
+        font-size: 16px;
+    }
+}

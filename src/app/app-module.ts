@@ -17,7 +17,14 @@ import { SharedModule } from './shared/shared.module';
     AppRoutingModule,
     SharedModule,
     BrowserModule,
-    ToastrModule.forRoot(),
+    ToastrModule.forRoot(
+      {
+        positionClass: 'toast-top-right',
+        preventDuplicates: true,
+        progressBar: true,
+        timeOut: 3000
+      }
+    ),
     HttpClientModule
   ],
   providers: [

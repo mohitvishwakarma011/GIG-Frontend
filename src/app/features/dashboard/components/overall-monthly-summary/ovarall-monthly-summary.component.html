@@ -1,0 +1,13 @@
+<section>
+    <ngx-card *ngIf="data != null" [config]="{width:'100%'}">
+        <div>This month</div>
+        <div class="d-flex justify-content-between text-muted"><span>Invoices raised</span><span>{{data.invoiceRaised}}</span></div>
+        <div class="d-flex justify-content-between text-muted"><span>Amount billed</span><span>{{data.amountBilled | currency :'INR'}}</span></div>
+        <div class="d-flex justify-content-between text-muted"><span>Amount received</span><span class="text-success">{{data.amountReceived | currency :'INR'}}</span></div>
+        <div>
+            <hr>
+        </div>
+        <div class="d-flex justify-content-between text-muted"><span>GST collected</span><span>{{data.gstCollected | currency :'INR'}}</span></div>
+        <div class="d-flex justify-content-between text-muted"><span>Active Clients</span><span>{{data.activeClients}}</span></div>
+    </ngx-card>
+</section>

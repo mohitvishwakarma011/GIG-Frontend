@@ -1,5 +1,5 @@
 import { Component, inject, OnInit, signal, Signal } from "@angular/core";
-import { DashboardService, IDashboardItemDto } from "../../services/dashboard.service";
+import { DashboardService, IDashboardItemDto, IDashboardSummaryDto } from "../../services/dashboard.service";
 import { catchError, of, tap } from "rxjs";
 import { AppUtils } from "src/app/helpers/app.utils";
 
@@ -12,8 +12,9 @@ import { AppUtils } from "src/app/helpers/app.utils";
 export class DashboardComponent implements OnInit {
     private readonly _dashboardService = inject(DashboardService);
     private readonly _appUtils = inject(AppUtils);
-
-    protected dashboardItems = signal<IDashboardItemDto[]>(null);
+    protected isModelLoaded = signal(false);
+    
+    protected dashboardSummary = signal<IDashboardSummaryDto>(null);
 
     public ngOnInit(): void {
         this._getDashboardData();
@@ -22,9 +23,11 @@ export class DashboardComponent implements OnInit {
     private _getDashboardData(): void {
         this._dashboardService.getDashboardSummary()
             .pipe(tap(data => {
-                this.dashboardItems.set(data);
+                this.isModelLoaded.set(true);
+                this.dashboardSummary.set(data);
             }),
                 catchError(err => {
+                    this.isModelLoaded.set(true);
                     this._appUtils.showErrors(err.error);
                     return of();
                 })).subscribe();

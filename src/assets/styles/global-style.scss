@@ -11,9 +11,16 @@ body {
   padding: 0;
   margin: 0;
   background: var(--app-bg);
-  height: 100%;
   width: 100%;
   color: var(--app-text-primary);
+}
+
+html {
+  min-height: 100vh !important;
+}
+
+body {
+  height: 100vh !important;
 }
 
 .fi {
@@ -25,9 +32,10 @@ body {
   }
 }
 
-.text-muted{
+.text-muted {
   color: var(--app-muted);
 }
+
 .cursor-pointer {
   cursor: pointer;
 }
@@ -36,8 +44,8 @@ body {
   padding-top: 70px;
   background-color: var(--app-bg);
   height: 100%;
-  padding-left:40px;
-  padding-right:40px;
+  padding-left: 40px;
+  padding-right: 40px;
 }
 
 .link {
@@ -113,7 +121,7 @@ body {
 }
 
 //Buttons
-.btn-primary{
+.btn-primary {
   background-color: var(--primary);
   color: var(--primary-foreground);
   border: none;
@@ -240,4 +248,91 @@ mat-form-field[appearance="outline"] {
 //Mat Dialog
 .mat-mdc-dialog-surface.mdc-dialog__surface {
   padding: 30px;
+}
+
+.mat-mdc-chip {
+  --mat-chip-container-shape-radius: 20px;
+  --mat-chip-container-height: 26px;
+  --mat-chip-label-text-size: 12px;
+}
+
+.chip-pending.mat-mdc-chip {
+  --mat-chip-elevated-container-color: rgba(69, 69, 69, 0.12);
+  --mat-chip-label-text-color: rgba(69, 69, 69);
+  --mat-chip-outline-color: rgba(69, 69, 69, 0.20);
+}
+
+.chip-success.mat-mdc-chip {
+  --mat-chip-elevated-container-color: rgba(18, 208, 28, 0.12);
+  --mat-chip-label-text-color: #005C00;
+  --mat-chip-outline-color: rgba(0, 122, 0, 0.20);
+}
+
+.chip-danger.mat-mdc-chip {
+  --mat-chip-elevated-container-color: rgba(213, 0, 0, 0.12);
+  --mat-chip-label-text-color: #D50000;
+  --mat-chip-outline-color: rgba(213, 0, 0, 0.20);
+}
+
+.chip-complete.mat-mdc-chip {
+  --mat-chip-elevated-container-color: rgba(24, 129, 227, 0.12);
+  --mat-chip-label-text-color: #005BB0;
+  --mat-chip-outline-color: rgba(0, 69, 188, 0.20);
+}
+
+.chip-warn.mat-mdc-chip {
+  --mat-chip-elevated-container-color: rgba(241, 140, 40, 0.12);
+  --mat-chip-label-text-color: #B05301;
+  --mat-chip-outline-color: rgba(141, 94, 0, 0.20);
+}
+
+.chip-circle.mat-mdc-chip {
+  --mdc-chip-container-shape-radius: 50px !important;
+  --mdc-chip-container-height: 22px !important;
+  --mdc-chip-outline-color: transparent !important;
+  padding: 0px !important;
+  width: 22px;
+  display: flex !important;
+  justify-content: center !important;
+  align-items: center !important;
+}
+
+.chip-circle.mat-mdc-chip .mdc-evolution-chip__action--primary {
+  padding: 0 !important;
+  width: 100%;
+}
+
+.chip-circle.mat-mdc-chip .mdc-evolution-chip__text-label {
+  line-height: 0px !important;
+}
+
+.chip-small {
+  width: fit-content !important;
+
+  .mat-mdc-chip {
+    --mdc-chip-container-shape-radius: 5px !important;
+    --mdc-chip-elevated-container-color: #4F52480D;
+    height: fit-content;
+    width: fit-content;
+
+    .mdc-evolution-chip__action--primary {
+      padding: 3px;
+    }
+  }
+}
+
+//Font Sizes
+.small-icon {
+  font-size: 12px;
+}
+
+//Text Colors
+.text-link {
+  color: var(--app-accent);
+  font-weight: 500;
+  font-size: 13px;
+}
+
+.text-success{
+  color: var(--app-success);
 }

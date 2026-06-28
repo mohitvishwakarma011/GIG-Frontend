@@ -49,7 +49,6 @@ export class AppUtils {
     public CheckTokenExists(): boolean {
         var tokenItem = this._getToken();
         if (this.isNullOrEmpty(tokenItem)) {
-            this.ShowSnackbar("Unothorized user");
             return false;
         }
         return true;
@@ -77,8 +76,9 @@ export class AppUtils {
         return AppDate.unixToDate(decodedToken.exp);
     }
 
-    public getRefreshTokenExpiry():Date{
-        return new Date(localStorage.getItem(Constants.refreshTokenExpiry));
+    public getRefreshTokenExpiry():Date | null{
+        const expiry = localStorage.getItem(Constants.refreshTokenExpiry);
+        return expiry ? new Date(expiry) : null;
     }
 
     public getUserIdentifier():number{
