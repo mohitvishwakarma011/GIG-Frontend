@@ -1,0 +1,50 @@
+<section>
+    <div class="row">
+        <h3 class="col-8">Clients</h3>
+        <div class="col-4">
+            <mat-form-field appearance="outline">
+                <input matInput type="text" [(ngModel)]="filter.search" (ngModelChange)="searchChanged()" placeholder="Search" />
+            </mat-form-field>
+        </div>
+    </div>
+    <ngx-card [config]="{width:'100%'}">
+        <table mat-table matSort [matSortDisableClear]="true" [dataSource]="dataSource">
+
+            <!-- Position Column -->
+            <ng-container matColumnDef="#">
+                <th mat-header-cell *matHeaderCellDef> #</th>
+                <td mat-cell *matCellDef="let element"> {{element.id}} </td>
+            </ng-container>
+
+            <!-- Name Column -->
+            <ng-container matColumnDef="name">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header> Name </th>
+                <td mat-cell *matCellDef="let element"> {{element.name}} </td>
+            </ng-container>
+
+            <!-- Weight Column -->
+            <ng-container matColumnDef="gstin">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header> GSTIN </th>
+                <td mat-cell *matCellDef="let element"> {{element.gstin}} </td>
+            </ng-container>
+
+            <!-- Symbol Column -->
+            <ng-container matColumnDef="billingAddress">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header> Billing Address </th>
+                <td mat-cell *matCellDef="let element"> {{element.billingAddress}} </td>
+            </ng-container>
+
+            <ng-container matColumnDef="state">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header>State</th>
+                <td mat-cell *matCellDef="let element"> {{element.state}} </td>
+            </ng-container>
+
+            <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+            <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+        </table>
+
+        <mat-paginator [pageSizeOptions]="pageSizeOptions" showFirstLastButtons
+            aria-label="Select page of periodic elements">
+        </mat-paginator>
+    </ngx-card>
+</section>

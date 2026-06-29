@@ -1,6 +1,6 @@
 import { CommonModule } from "@angular/common";
 import { NgModule } from "@angular/core";
-import { ReactiveFormsModule } from "@angular/forms";
+import { FormsModule, ReactiveFormsModule } from "@angular/forms";
 import { MatButtonModule } from '@angular/material/button';
 import { MatChipsModule } from "@angular/material/chips";
 import { MatDialogModule } from "@angular/material/dialog";
@@ -17,7 +17,8 @@ import { DashboardItemComponent } from "./components/dashboard-item/dashboard-it
 import { NavbarComponent } from "./components/navbar/navbar.component";
 import { ResourceNotFoundComponent } from './components/resource-not-found/resource-not-found.component';
 import { LoadingObserverService } from "./services/loading-observer.service";
-
+import {MatPaginatorModule} from '@angular/material/paginator';
+import { MatSortModule } from "@angular/material/sort";
 @NgModule({
     imports: [
         MatFormFieldModule,
@@ -30,7 +31,10 @@ import { LoadingObserverService } from "./services/loading-observer.service";
         MatDialogModule,
         MatTableModule,
         MatChipsModule,
-        LoadingBarModule
+        LoadingBarModule,
+        MatPaginatorModule,
+        FormsModule,
+        MatSortModule
     ],
     declarations: [
         LayoutComponent,
@@ -55,7 +59,10 @@ import { LoadingObserverService } from "./services/loading-observer.service";
         DashboardItemComponent,
         MatTableModule,
         MatChipsModule,
-        LoadingBarModule
+        LoadingBarModule,
+        MatPaginatorModule,
+        FormsModule,
+        MatSortModule
     ],
     providers:[LoadingObserverService]
 })

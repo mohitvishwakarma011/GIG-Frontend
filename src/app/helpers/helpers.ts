@@ -11,4 +11,11 @@ export class Helpers {
                 return 'Unknown';
         }
     }
+
+    static isNullOrEmpty(str: string): boolean {
+        str = str.trim().toLowerCase();
+        if (str && str != null && str != undefined && str != '')
+            return false;
+        else return true;
+    }
 }
