@@ -1,6 +1,9 @@
 import { Component, inject, ViewEncapsulation } from "@angular/core";
 import { AppUtils } from "src/app/helpers/app.utils";
 import { Router } from "@angular/router";
+import { LoadingBarService } from "@ngx-loading-bar/core";
+import { map, Observable, startWith } from "rxjs";
+import { LoadingObserverService } from "../../services/loading-observer.service";
 
 @Component({
     selector: 'ngx-layout',
@@ -11,11 +14,21 @@ import { Router } from "@angular/router";
 export class LayoutComponent {
     protected isAuthenticated: boolean = false;
     private readonly _appUtils: AppUtils = inject(AppUtils);
-    
-    constructor(private readonly _router: Router) {
+
+    isLoading$: Observable<boolean>;
+
+    constructor(private loadingBar: LoadingBarService,
+        private loaderObserverService: LoadingObserverService,
+        private readonly _router: Router) {
         this.isAuthenticated = this._appUtils.isUserAuthenticated();
-        // if(!this.isAuthenticated){
-        //     this._router.navigate(['/auth/login']);
-        // }
+
+        this.isLoading$ = this.loadingBar.value$.pipe(map(value => value > 0 && value < 100), startWith(false));
+
+        this.isLoading$.subscribe({
+            next: value => {
+                this.loaderObserverService.setState(value);
+            }
+        })
+
     }
 }

@@ -1,3 +1,5 @@
+<div class="loader-overlay" *ngIf="isLoading$ | async"></div>
+<ngx-loading-bar [color]="'#2562B3'" [height]="'4px'" [includeSpinner]="false"></ngx-loading-bar>
 <section class="main-section">
     <ngx-navbar></ngx-navbar>
     <router-outlet></router-outlet>
