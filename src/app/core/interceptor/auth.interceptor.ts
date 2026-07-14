@@ -7,83 +7,108 @@ import {
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import { LoadingBarService } from '@ngx-loading-bar/core';
-import { ToastrService } from 'ngx-toastr';
-import { Observable, of } from 'rxjs';
-import { catchError, finalize, tap } from 'rxjs/operators';
+import { BehaviorSubject, Observable, throwError } from 'rxjs';
+import { catchError, filter, switchMap, take, tap } from 'rxjs/operators';
 import { AuthService } from 'src/app/features/auth/services/auth.service';
-import { AppUtils } from 'src/app/helpers/app.utils';
 import { Constants } from 'src/app/helpers/constants';
 
 @Injectable()
 export class AuthInterceptor implements HttpInterceptor {
 
-    // Dependencies are cleanly injected through the constructor
-    constructor(
-        private readonly _appUtils: AppUtils,
-        private readonly _router: Router,
-        private readonly _toastr: ToastrService,
-        private readonly _authService: AuthService,
-        private readonly _loadingBarService: LoadingBarService
-    ) {
+    private isRefreshing = false;
+    private refreshTokenSubject = new BehaviorSubject<string | null>(null);
 
+    constructor(
+        private authService: AuthService,
+        private router: Router,
+        private readonly _loadingBarService: LoadingBarService
+    ) { }
+
+    intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
+
+        const token = localStorage.getItem(Constants.accessTokenKey);
+        const loaderRef = this._loadingBarService.useRef();
+        let authReq = req;
+
+        if (token) {
+            authReq = this.addToken(req, token);
+        }
+        loaderRef.start();
+
+        return next.handle(authReq).pipe(tap(() => {
+            loaderRef.complete();
+        }),
+            catchError(error => {
+                loaderRef.complete();
+                if (error.status === 401 && !req.url.includes('/refresh-token')) {
+                    return this.handle401Error(authReq, next);
+                }
+
+                return throwError(() => error);
+            })
+        );
     }
 
-    public intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
+    private handle401Error(
+        request: HttpRequest<any>,
+        next: HttpHandler
+    ): Observable<HttpEvent<any>> {
 
-        const loaderRef = this._loadingBarService.useRef();
+        if (!this.isRefreshing) {
 
-        if (!req.url.includes("account/health-check")) {
-            loaderRef.start();
-        }
+            this.isRefreshing = true;
+            this.refreshTokenSubject.next(null);
 
-        if (this._appUtils.CheckTokenExists()) {
-            const token = localStorage.getItem(Constants.accessTokenKey) ?? '';
+            return this.authService.refreshAccessToken().pipe(
 
-            const authReq = req.clone({
-                headers: req.headers.set('Authorization', `Bearer ${token}`)
-            });
+                switchMap((tokens) => {
 
-            return next.handle(authReq).pipe(
-                catchError(res => {
-                    if (res.status === 401) {
-                        const refreshToken = localStorage.getItem(Constants.refreshTokenKey);
+                    this.isRefreshing = false;
 
-                        if (!refreshToken || this._appUtils.isNullOrEmpty(refreshToken)) {
-                            this._toastr.error("Session expired. Please login again.");
-                            localStorage.clear();
-                            this._router.navigate(['auth/login']);
-                        } else {
-                            // Attempt to refresh the token
-                            this._authService.refreshAccessToken().pipe(
-                                tap(data => {
-                                    // Note: In your original snippet, 'res' was used here by mistake instead of 'data'
-                                    localStorage.setItem(Constants.accessTokenKey, data.accessToken);
-                                    localStorage.setItem(Constants.refreshTokenKey, data.refreshToken);
-                                    localStorage.setItem(Constants.refreshTokenExpiry, data.refreshTokenExpiry.toString());
-                                }),
-                                catchError(err => {
-                                    this._appUtils.showErrors(err.error);
-                                    localStorage.clear();
-                                    this._router.navigate(['/login']);
-                                    return of(null);
-                                })
-                            ).subscribe();
-                        }
-                    }
-                    return of(res);
+                    localStorage.setItem(Constants.accessTokenKey, tokens.accessToken);
+                    localStorage.setItem(Constants.refreshTokenKey, tokens.refreshToken);
+
+                    this.refreshTokenSubject.next(tokens.accessToken);
+
+                    return next.handle(
+                        this.addToken(request.clone({ withCredentials: true }), tokens.accessToken)
+                    );
+
                 }),
-                finalize(() => {
-                    if (!req.url.includes("account/health-check")) {
-                        loaderRef.complete();
-                    }
+
+                catchError(err => {
+
+                    this.isRefreshing = false;
+
+                    localStorage.clear();
+                    this.router.navigate(['/login']);
+
+                    return throwError(() => err);
                 })
             );
         }
 
-        return next.handle(req).pipe(finalize(() => {
-            if (!req.url.includes("account/health-check")) {
-                loaderRef.complete();
+        // Wait until refresh finishes
+        return this.refreshTokenSubject.pipe(
+
+            filter(token => token != null),
+
+            take(1),
+
+            switchMap(token => {
+                return next.handle(
+                    this.addToken(request, token!)
+                );
+            })
+
+        );
+    }
+
+    private addToken(request: HttpRequest<any>, token: string) {
+        return request.clone({
+            setHeaders: {
+                Authorization: `Bearer ${token}`
             }
-        }));
+        });
     }
 }

@@ -1,0 +1,37 @@
+<div class="row">
+    <div class="col-12">
+        <div class="d-flex align-items-center justify-content-center">
+            <div class="initials">{{initials}}</div>
+        </div>
+        <div class="text-center">{{client()?.name}}</div>
+        <div class="text-center text-muted fs-12">{{client()?.state}} · State code {{client()?.stateCode}}
+        </div>
+    </div>
+    <div class="col-12">
+        <hr>
+    </div>
+    <div class="col-12 fs-12">
+        <div class="text-muted">EMAIL</div>
+        <div>
+            {{client()?.email}}
+        </div>
+    </div>
+    <div class="col-12 fs-12 mt-2">
+        <div class="text-muted">GSTIN</div>
+        <div>
+            {{client()?.gstin}}
+        </div>
+    </div>
+    <div class="col-12 fs-12 mt-2">
+        <div class="text-muted">BILLING ADDRESS</div>
+        <div>
+            {{client()?.billingAddress}}
+        </div>
+    </div>
+    <div class="col-12 fs-12 mt-2">
+        <div class="text-muted">CLIENT SINCE</div>
+        <div>
+            {{client()?.createdOn | date:'dd MMM yyyy'}}
+        </div>
+    </div>
+</div>

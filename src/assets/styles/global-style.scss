@@ -40,6 +40,16 @@ body {
   cursor: pointer;
 }
 
+.actions{
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    cursor: pointer;
+    .fi{
+        font-size: 16px;
+    }
+}
+
 .main-section {
   padding-top: 70px;
   background-color: var(--app-bg);
@@ -326,6 +336,20 @@ mat-form-field[appearance="outline"] {
   font-size: 12px;
 }
 
+.fs-10{
+  font-size: 10px;
+}
+
+.fs-12{
+  font-size: 12px;
+}
+.fs-16{
+  font-size: 16px;
+}
+.fs-18{
+  font-size: 18px;
+}
+
 //Text Colors
 .text-link {
   color: var(--app-accent);
@@ -337,6 +361,7 @@ mat-form-field[appearance="outline"] {
   color: var(--app-success);
 }
 
+//Loader Overlay
 .loader-overlay {
   position: fixed;
   top: 0;
