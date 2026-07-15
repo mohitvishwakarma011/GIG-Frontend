@@ -177,18 +177,15 @@ mat-form-field[appearance="outline"] {
   width: 100%;
   margin-bottom: var(--app-margin, 16px);
 
-  // 1. Structural body background layout with your frosted glass tokens
   .mat-mdc-text-field-wrapper {
     background-color: var(--app-transparent-bg, rgba(248, 245, 236, 0.35)) !important;
     backdrop-filter: blur(var(--default-blur, 8px)) !important;
     -webkit-backdrop-filter: blur(var(--default-blur, 8px)) !important;
     transition: background-color 0.25s ease, box-shadow 0.25s ease !important;
-    // Custom Structural Adjustments
-    border-radius: 10px !important; // 👈 Set your desired outer border-radius here
+    border-radius: 10px !important;
     padding: 0 14px !important;
   }
 
-  // 2. Structural boundary line parameters mapped to your rule system variable
   .mdc-notched-outline__leading,
   .mdc-notched-outline__notch,
   .mdc-notched-outline__trailing {
@@ -196,12 +193,10 @@ mat-form-field[appearance="outline"] {
     transition: border-color 0.2s ease !important;
   }
 
-  // 3. Inactive typography labels matching your helper foreground token
   .mdc-floating-label {
     color: var(--muted-foreground, #6B7280) !important;
   }
 
-  // 4. Hover State Changes
   &:hover {
     .mat-mdc-text-field-wrapper {
       background-color: rgba(248, 245, 236, 0.55) !important;
@@ -214,7 +209,6 @@ mat-form-field[appearance="outline"] {
     }
   }
 
-  // 5. Active Selected Focus Parameters (Bound directly to your deep blue brand stamp)
   &.mat-form-field-focused {
     .mat-mdc-text-field-wrapper {
       background-color: rgba(248, 245, 236, 0.75) !important;
@@ -233,13 +227,11 @@ mat-form-field[appearance="outline"] {
     }
   }
 
-  // 6. Native input user text configuration matching your primary text token
   input.mat-mdc-input-element {
     color: var(--app-text-primary, #23262E) !important;
     font-weight: 500;
   }
 
-  // 7. Error Rule Adjustments (Bound securely to your destructive token)
   &.mat-form-field-invalid {
 
     .mdc-notched-outline__leading,
@@ -392,4 +384,77 @@ mat-form-field[appearance="outline"] {
   top: 16px;
   right: 16px;
   z-index: 999999 !important;
+}
+
+/*---------------------------- Table ------------------------------------*/
+
+.mat-mdc-table {
+  border-radius: 10px;
+}
+
+.mat-mdc-cell {
+  color: var(--app-gray) !important;
+  font-size: 14px !important;
+  font-weight: 500 !important;
+}
+
+.mat-mdc-header-cell {
+  color: var(--primary) !important;
+  font-size: 14px !important;
+  font-weight: 600 !important;
+}
+
+.mat-mdc-cell,
+.mat-mdc-header-cell {
+  border-bottom-width: 0px !important;
+}
+
+.mat-mdc-header-row {
+  height: 44px !important;
+}
+
+table {
+  border-collapse: separate !important;
+  border-spacing: 0;
+  border-radius: 8px !important;
+}
+
+.table-bordered {
+  overflow: auto;
+  border: 1px solid #dee2e6 !important;
+  border-radius: 8px !important;
+}
+
+.table-border-less {
+  border-radius: 8px !important;
+}
+
+.table-bordered th,
+.table-bordered td,
+.table-borderless th,
+.table-borderless td {
+  border: none !important;
+}
+
+thead {
+  font-family: 12px !important;
+}
+
+.table td {
+  color: var(--text-black-90);
+  border-bottom: 3px solid var(--brand-black-0) !important;
+  vertical-align: middle !important;
+}
+
+.table tbody tr:last-child td {
+  border-bottom: none !important;
+}
+
+.mat-mdc-header-cell.mdc-data-table__header-cell {
+  z-index: 11 !important;
+}
+
+th {
+  font-size: 12px;
+  font-weight: normal;
 }

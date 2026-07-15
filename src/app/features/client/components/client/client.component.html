@@ -1,14 +1,14 @@
 <section>
     <div class="row">
-        <div class="col-4">
+        <div class="col-12 col-md-4">
             <ngx-card [config]="{width:'100%'}">
                 <ngx-client-overview [clientId]="clientId"></ngx-client-overview>
             </ngx-card>
         </div>
-        <div class="col-8">
+        <div class="col-12 col-md-8 mt-3 mt-md-0">
             <ngx-invoice-list [clientId]="clientId"></ngx-invoice-list>
         </div>
-        <div class="col-4 mt-3">
+        <div class="col-md-4 mt-3">
             <ngx-card>
                 <ngx-client-summary [clientId]="clientId"></ngx-client-summary>
             </ngx-card>
