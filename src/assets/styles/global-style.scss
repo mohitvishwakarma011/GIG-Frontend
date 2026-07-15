@@ -131,37 +131,49 @@ body {
   }
 }
 
+//Primary Button
+
+.btn-primary {
+  background: var(--app-gradient);
+  color: #fff;
+  border: none;
+  border-radius: 8px;
+  padding: 8px 18px;
+  font-size: 15px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.25s ease;
+  box-shadow: 0 8px 20px rgba(63, 57, 51, 0.25);
+  .fi{
+    margin-top: 4px;
+    font-size: 14px !important;
+    &:hover{
+      color: white !important;
+    }
+  }
+}
+
+.btn-primary:hover {
+  box-shadow: 0 12px 28px rgba(255, 122, 0, 0.35);
+  background: linear-gradient(135deg, #FF9500, #FF7300);
+}
+
+.btn-primary:active {
+  transform: scale(0.98);
+}
+
+.btn-primary:disabled {
+  background: #FFD2A8;
+  color: #ffffff;
+  cursor: not-allowed;
+  box-shadow: none;
+}
+
 @media(max-width: 576px) {
   .auth-wrapper {
     margin: 0 16px;
   }
 }
-
-//Buttons
-.btn-primary {
-  background-color: var(--primary);
-  color: var(--primary-foreground);
-  border: none;
-  border-radius: 6px;
-  padding: 0.875rem;
-  font-size: 0.95rem;
-  font-weight: 500;
-  cursor: pointer;
-  transition: opacity 0.2s ease;
-  margin-top: 0.5rem;
-
-  &:hover:not(:disabled) {
-    opacity: 0.9;
-  }
-
-  &:disabled {
-    background-color: var(--app-muted-rule);
-    color: var(--muted-foreground);
-    cursor: not-allowed;
-  }
-}
-
-//Overrides
 
 //Mat Menu
 .mat-mdc-menu-panel {
@@ -341,7 +353,7 @@ mat-form-field[appearance="outline"] {
 
 .fs-12 {
   font-size: 12px !important;
-} 
+}
 
 .fs-16 {
   font-size: 16px !important;
@@ -353,7 +365,7 @@ mat-form-field[appearance="outline"] {
 
 //Text Colors
 .text-link {
-  color: var(--app-accent);
+  color: var(--app-accent) !important;
   font-weight: 500;
   font-size: 13px;
 }
@@ -393,7 +405,7 @@ mat-form-field[appearance="outline"] {
 }
 
 .mat-mdc-cell {
-  color: var(--app-gray) !important;
+  color: var(--app-gray);
   font-size: 14px !important;
   font-weight: 500 !important;
 }

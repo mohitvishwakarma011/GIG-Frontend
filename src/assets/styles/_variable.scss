@@ -16,7 +16,7 @@ body {
     --destructive: #DC2626;
     /* Input Borders */
     --border: #E2E5EB;
-    --app-link: #3c7dff;
+    --app-link: linear-gradient(135deg, #FF8A00, #FF6A00);
 
     /* Spacings */
     --app-margin: 16px;
@@ -37,5 +37,5 @@ body {
     --app-accent: #6da7ec;
     --app-gray:#2a2f3dc4;
     --app-muted:#898781;
-    
+    --app-gradient:linear-gradient(135deg, #FF8A00, #FF6A00);
 }

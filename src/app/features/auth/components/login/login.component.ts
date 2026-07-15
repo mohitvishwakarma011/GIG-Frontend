@@ -83,7 +83,6 @@ export class LoginComponent {
       this._router.navigate(['/dashboard/home']);
     }),
       catchError(err => {
-        this._toastr.error("Session has been expired. Please login!");
         return of();
       })).subscribe();
   }

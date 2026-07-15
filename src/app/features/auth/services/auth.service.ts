@@ -1,7 +1,6 @@
 import { HttpClient } from "@angular/common/http";
 import { Injectable } from "@angular/core";
 import { map, Observable, tap } from "rxjs";
-import { AppDate } from "src/app/helpers/app.date";
 import { AppUtils } from "src/app/helpers/app.utils";
 import { Constants } from "src/app/helpers/constants";
 import { environment } from "src/environments/environment";
@@ -23,8 +22,7 @@ export class AuthService {
     }
 
     public refreshAccessToken(): Observable<ILoginResponseDto> {
-        const refreshToken = localStorage.getItem(Constants.refreshTokenKey);
-        return this.http.post<ILoginResponse>(`${this.rootEndpoint}/refresh`, { refreshToken: "Test" }, { withCredentials: true })
+        return this.http.get<ILoginResponse>(`${this.rootEndpoint}/refresh`, { withCredentials: true })
             .pipe(map(data => {
                 return toLoginResponseDto(data);
             }));
