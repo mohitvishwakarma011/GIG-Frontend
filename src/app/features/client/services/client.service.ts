@@ -38,6 +38,8 @@ export class ClientService {
                 return data.map(x => toInvoiceListDto(x));
             }));
     }
+
+   
 }
 
 const toClientDto = (data: IClient): IClientDto => {

@@ -332,23 +332,23 @@ mat-form-field[appearance="outline"] {
 
 //Font Sizes
 .small-icon {
-  font-size: 12px;
+  font-size: 12px !important;
 }
 
 .fs-10 {
-  font-size: 10px;
+  font-size: 10px !important;
 }
 
 .fs-12 {
-  font-size: 12px;
-}
+  font-size: 12px !important;
+} 
 
 .fs-16 {
-  font-size: 16px;
+  font-size: 16px !important;
 }
 
 .fs-18 {
-  font-size: 18px;
+  font-size: 18px !important;
 }
 
 //Text Colors

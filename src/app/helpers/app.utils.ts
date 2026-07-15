@@ -5,6 +5,7 @@ import { ToastrService } from "ngx-toastr";
 import { AppDate } from "./app.date";
 import { Constants } from "./constants";
 import { BehaviorSubject, Observable } from "rxjs";
+import { Router } from "@angular/router";
 
 @Injectable({
     providedIn: 'root'
@@ -13,7 +14,9 @@ export class AppUtils {
     private readonly _snackbar = inject(MatSnackBar);
     private readonly authenticateSubject = new BehaviorSubject<boolean>(this.isUserAuthenticated());
 
-    constructor(private readonly _toastr: ToastrService) {
+    constructor(private readonly _toastr: ToastrService,
+        private readonly _router: Router
+    ) {
     }
 
     public isUserAuthenticated(): boolean {
@@ -76,12 +79,12 @@ export class AppUtils {
         return AppDate.unixToDate(decodedToken.exp);
     }
 
-    public getRefreshTokenExpiry():Date | null{
+    public getRefreshTokenExpiry(): Date | null {
         const expiry = localStorage.getItem(Constants.refreshTokenExpiry);
         return expiry ? new Date(expiry) : null;
     }
 
-    public getUserIdentifier():number{
+    public getUserIdentifier(): number {
         const token = this.getDecodedToken();
         return Number(token.sub);
     }

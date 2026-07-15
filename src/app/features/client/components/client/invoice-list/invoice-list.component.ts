@@ -3,6 +3,9 @@ import { ClientService, IInvoiceListDto } from "../../../services/client.service
 import { AppUtils } from "src/app/helpers/app.utils";
 import { catchError, of, tap } from "rxjs";
 import { Constants } from "src/app/helpers/constants";
+import { InvoiceService } from "../../../services/invoice.service";
+import { ToastrService } from "ngx-toastr";
+import { ClientStateService } from "../../../services/client-state.service";
 
 @Component({
     selector: 'ngx-invoice-list',
@@ -12,10 +15,14 @@ import { Constants } from "src/app/helpers/constants";
 })
 export class InvoiceListComponent implements OnInit {
     @Input() clientId: number = 0;
-    @Input() clientName: string = '';
+
+    protected clientName = '';
 
     private readonly _clientService = inject(ClientService);
+    private readonly _invoiceService = inject(InvoiceService);
     private readonly _appUtils = inject(AppUtils);
+    private readonly _toastrService = inject(ToastrService);
+    private readonly _clientStateService = inject(ClientStateService);
 
     protected invoices = signal<IInvoiceListDto[]>(null);
     protected isModelLoaded = signal(false);
@@ -25,6 +32,36 @@ export class InvoiceListComponent implements OnInit {
 
     public ngOnInit(): void {
         this._getClientInvices();
+        this._clientStateService.getClientInfo().subscribe(client =>{
+            this.clientName = client?.name;
+        })
+    }
+
+    protected downloadInvoice(invoiceId: number): void {
+        this._invoiceService.downloadInvoice(invoiceId)
+            .pipe(tap((data: Blob) => {
+                const url = window.URL.createObjectURL(data);
+                const a = document.createElement('a');
+                a.href = url;
+                a.download = `invoice-${invoiceId}.pdf`;
+                document.body.appendChild(a);
+                a.click();
+                document.body.removeChild(a);
+                window.URL.revokeObjectURL(url);
+            }))
+            .subscribe();
+    }
+
+    protected deleteInvoice(invoiceId: number): void {
+        this._invoiceService.deleteInvoice(invoiceId)
+            .pipe(tap(() => {
+                this._toastrService.success('Invoice deleted successfully')
+                this._getClientInvices();
+            }),
+                catchError(err => {
+                    this._appUtils.showErrors(err.error);
+                    return of();
+                })).subscribe();
     }
 
     private _getClientInvices(): void {

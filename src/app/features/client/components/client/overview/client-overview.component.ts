@@ -2,6 +2,7 @@ import { Component, inject, Input, OnInit, signal } from "@angular/core";
 import { ClientService, IClientDto } from "../../../services/client.service";
 import { catchError, of, tap } from "rxjs";
 import { AppUtils } from "src/app/helpers/app.utils";
+import { ClientStateService } from "../../../services/client-state.service";
 
 @Component({
     selector: 'ngx-client-overview',
@@ -14,6 +15,7 @@ export class ClientOverviewComponent implements OnInit {
 
     private readonly _clientService = inject(ClientService);
     private readonly _appUtils = inject(AppUtils);
+    private readonly _clientStateService = inject(ClientStateService);
 
     protected client = signal<IClientDto>(null);
     protected initials: string = '';
@@ -27,6 +29,7 @@ export class ClientOverviewComponent implements OnInit {
         this._clientService.getClientById(this.clientId)
             .pipe(tap(data => {
                 this.client.set(data);
+                this._clientStateService.setClientInfo(data);
                 this._extractClientInitials(data.name);
                 this.isLoaded.set(true);
             }),

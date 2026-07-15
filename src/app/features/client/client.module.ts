@@ -7,6 +7,8 @@ import { ClientComponent } from "./components/client/client.component";
 import { ClientOverviewComponent } from "./components/client/overview/client-overview.component";
 import { ClientSummaryComponent } from "./components/client/summary/client-summary.component";
 import { InvoiceListComponent } from "./components/client/invoice-list/invoice-list.component";
+import { InvoiceService } from "./services/invoice.service";
+import { ClientStateService } from "./services/client-state.service";
 
 
 @NgModule({
@@ -22,7 +24,10 @@ import { InvoiceListComponent } from "./components/client/invoice-list/invoice-l
         ClientRoutingModule,
     ],
     exports: [],
-    providers: [ClientService]
+    providers: [
+        ClientService,
+        InvoiceService,
+        ClientStateService]
 })
 export class ClientModule {
 

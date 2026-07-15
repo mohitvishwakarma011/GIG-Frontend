@@ -78,9 +78,6 @@ export class LoginComponent {
   }
 
   private _refreshAccessToken(): void {
-    if (!this._appUtils.getRefreshTokenExpiry() && this._appUtils.getRefreshTokenExpiry() < AppDate.getCurrentDate())
-      return;
-
     this._authService.refreshAccessToken().pipe(tap(data => {
       this._saveAuthResponse(data);
       this._router.navigate(['/dashboard/home']);
