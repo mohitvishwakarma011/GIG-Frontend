@@ -1,10 +1,10 @@
-<section>
+<section *ngIf="isModelLoaded()">
     <ngx-card [config]="{width:'100%',padding:'10px'}">
         <div class="d-flex align-items-center justify-content-between">
             <span>Invoices for {{clientName}}</span>
             <ngx-card [config]="{padding:'6px'}">
                 <div class="d-flex align-items-center justify-content-center gap-2 cursor-pointer">
-                    <i class="fi fi-rs-arrow-up-right"></i>
+                    <i class="fi fs-12 fi-rs-arrow-up-right"></i>
                     View all
                 </div>
             </ngx-card>

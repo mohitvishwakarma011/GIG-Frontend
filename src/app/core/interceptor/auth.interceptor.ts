@@ -62,18 +62,13 @@ export class AuthInterceptor implements HttpInterceptor {
             return this.authService.refreshAccessToken().pipe(
 
                 switchMap((tokens) => {
-
                     this.isRefreshing = false;
-
                     localStorage.setItem(Constants.accessTokenKey, tokens.accessToken);
-                    localStorage.setItem(Constants.refreshTokenKey, tokens.refreshToken);
-
                     this.refreshTokenSubject.next(tokens.accessToken);
 
                     return next.handle(
-                        this.addToken(request.clone({ withCredentials: true }), tokens.accessToken)
+                        this.addToken(request, tokens.accessToken)
                     );
-
                 }),
 
                 catchError(err => {
@@ -81,7 +76,7 @@ export class AuthInterceptor implements HttpInterceptor {
                     this.isRefreshing = false;
 
                     localStorage.clear();
-                    this.router.navigate(['/login']);
+                    this.router.navigate(['auth/login']);
 
                     return throwError(() => err);
                 })

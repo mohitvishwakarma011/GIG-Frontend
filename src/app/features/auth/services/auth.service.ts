@@ -16,7 +16,7 @@ export class AuthService {
     ) { }
 
     public loginUser(dto: ILoginDto): Observable<ILoginResponseDto> {
-        return this.http.post<ILoginResponse>(`${this.rootEndpoint}/login`, dto)
+        return this.http.post<ILoginResponse>(`${this.rootEndpoint}/login`, dto, { withCredentials: true })
             .pipe(map(data => {
                 return toLoginResponseDto(data);
             }));
@@ -24,7 +24,7 @@ export class AuthService {
 
     public refreshAccessToken(): Observable<ILoginResponseDto> {
         const refreshToken = localStorage.getItem(Constants.refreshTokenKey);
-        return this.http.post<ILoginResponse>(`${this.rootEndpoint}/refresh`, { refreshToken })
+        return this.http.post<ILoginResponse>(`${this.rootEndpoint}/refresh`, { refreshToken: "Test" }, { withCredentials: true })
             .pipe(map(data => {
                 return toLoginResponseDto(data);
             }));
@@ -39,32 +39,27 @@ export class AuthService {
 
     public logoutUser(): Observable<any> {
         const userId = this.appUtils.getUserIdentifier();
-        return this.http.put(`${this.rootEndpoint}/logout`,{userId});
+        return this.http.put(`${this.rootEndpoint}/logout`, { userId });
     }
 }
 
 const toLoginResponseDto = (response: ILoginResponse): ILoginResponseDto => {
     return {
-        ...response,
-        refreshTokenExpiry: AppDate.toDate(response.refreshTokenExpiry)
+        ...response
     }
 }
-
 
 //Log In
 interface ILoginResponseBase {
     accessToken: string;
     businessName: string;
     email: string;
-    refreshToken: string;
 }
 
 interface ILoginResponse extends ILoginResponseBase {
-    refreshTokenExpiry: string;
 }
 
 export interface ILoginResponseDto extends ILoginResponseBase {
-    refreshTokenExpiry: Date;
 }
 
 export interface ILoginDto {

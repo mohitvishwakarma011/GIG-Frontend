@@ -24,7 +24,7 @@ body {
 }
 
 .fi {
-  font-size: 22px;
+  font-size: 18px;
   color: var(--flat-icon-default) !important;
 
   &:hover {
@@ -55,6 +55,7 @@ body {
   padding-top: 70px;
   background-color: var(--app-bg);
   height: fit-content !important;
+  min-height: 100%;
   padding-left: 40px;
   padding-right: 40px;
   padding-bottom: 40px;
@@ -382,4 +383,13 @@ mat-form-field[appearance="outline"] {
   align-items: center;
   justify-content: center;
   cursor: wait;
+}
+
+/* global stylesheet */
+.toast-container,
+.toast-top-right {
+  position: fixed !important;
+  top: 16px;
+  right: 16px;
+  z-index: 999999 !important;
 }

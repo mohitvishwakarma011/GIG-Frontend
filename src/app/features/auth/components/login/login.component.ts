@@ -66,8 +66,6 @@ export class LoginComponent {
   private _saveAuthResponse(res: ILoginResponseDto): void {
     //save AuthToken
     localStorage.setItem(Constants.accessTokenKey, res.accessToken);
-    localStorage.setItem(Constants.refreshTokenKey, res.refreshToken);
-    localStorage.setItem(Constants.refreshTokenExpiry, res.refreshTokenExpiry.toString());
     this._appUtils.setAuthenticatedSubject(true);
   }
 
