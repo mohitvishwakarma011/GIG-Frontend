@@ -6,6 +6,8 @@ import { Constants } from "src/app/helpers/constants";
 import { InvoiceService } from "../../../services/invoice.service";
 import { ToastrService } from "ngx-toastr";
 import { ClientStateService } from "../../../services/client-state.service";
+import { MatDialog } from "@angular/material/dialog";
+import { CreateInvoiceComponent } from "../create-invoice/create-invoice.component";
 
 @Component({
     selector: 'ngx-invoice-list',
@@ -23,6 +25,7 @@ export class InvoiceListComponent implements OnInit {
     private readonly _appUtils = inject(AppUtils);
     private readonly _toastrService = inject(ToastrService);
     private readonly _clientStateService = inject(ClientStateService);
+    private readonly _dialog = inject(MatDialog);
 
     protected invoices = signal<IInvoiceListDto[]>(null);
     protected isModelLoaded = signal(false);
@@ -32,7 +35,7 @@ export class InvoiceListComponent implements OnInit {
 
     public ngOnInit(): void {
         this._getClientInvices();
-        this._clientStateService.getClientInfo().subscribe(client =>{
+        this._clientStateService.getClientInfo().subscribe(client => {
             this.clientName = client?.name;
         })
     }
@@ -62,6 +65,14 @@ export class InvoiceListComponent implements OnInit {
                     this._appUtils.showErrors(err.error);
                     return of();
                 })).subscribe();
+    }
+
+    protected createNewInvoice(): void {
+        this._dialog.open(CreateInvoiceComponent, {
+            minWidth: '90vw',
+            height:'90%',
+            data: { clientId: this.clientId }
+        });
     }
 
     private _getClientInvices(): void {

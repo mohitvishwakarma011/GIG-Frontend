@@ -36,6 +36,10 @@ body {
   color: var(--app-muted);
 }
 
+.text-orange {
+  color: var(--text-orange) !important;
+}
+
 .cursor-pointer {
   cursor: pointer;
 }
@@ -163,6 +167,43 @@ body {
 }
 
 .btn-primary:disabled {
+  background: #FFD2A8;
+  color: #ffffff;
+  cursor: not-allowed;
+  box-shadow: none;
+}
+
+//Secondary button
+.btn-secondary {
+  color: #FF7300;
+  border: var(--app-rule) 1px solid;
+  border-radius: 8px;
+  background-color: transparent;
+  padding: 8px 18px;
+  font-size: 15px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.25s ease;
+  box-shadow: 0 8px 20px rgba(63, 57, 51, 0.25);
+  .fi{
+    color: #FF7300 !important;
+    margin-top: 4px;
+    font-size: 14px !important;
+    &:hover{
+      color: white !important;
+    }
+  }
+}
+
+.btn-secondary:hover {
+  box-shadow: 0 12px 28px rgba(255, 122, 0, 0.35);
+}
+
+.btn-secondary:active {
+  transform: scale(0.98);
+}
+
+.btn-secondary:disabled {
   background: #FFD2A8;
   color: #ffffff;
   cursor: not-allowed;

@@ -39,7 +39,13 @@ export class ClientService {
             }));
     }
 
-   
+    public getClientSelectOptions(): Observable<IClientSelectOptionDto[]> {
+        return this._http.get<IClientSelectOption[]>(`${this.apiUrl}/select-option`)
+            .pipe(map(data => {
+                return data.map(x => toClientSelectOptions(x));
+            }));
+    }
+
 }
 
 const toClientDto = (data: IClient): IClientDto => {
@@ -52,6 +58,10 @@ const toClientSummaryDto = (data: IClientSummary): IClientSummaryDto => {
 
 const toInvoiceListDto = (data: IInvoiceList): IInvoiceListDto => {
     return { ...data, status: Helpers.getStatusString(data.status) }
+}
+
+const toClientSelectOptions = (data: IClientSelectOption): IClientSelectOption => {
+    return { ...data };
 }
 
 interface IClientBase {
@@ -103,3 +113,11 @@ interface IInvoiceList extends IInvoiceListBase {
 export interface IInvoiceListDto extends IInvoiceListBase {
     status: string;
 }
+
+//Client Select Options
+interface IClientSelectOption {
+    id: number;
+    name: string;
+}
+
+export interface IClientSelectOptionDto extends IClientSelectOption { }

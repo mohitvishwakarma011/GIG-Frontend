@@ -1,0 +1,36 @@
+<section>
+  <div class="row">
+    <div class="col-12 col-sm-6 text-start">
+      <div class="fs-18 fw-bold">Create New Invoice</div>
+      <div class="text-muted fs-12">Fill in the details below to create a new invoice</div>
+    </div>
+    <div class="col-12 col-sm-6 mt-3 mt-sm-0 text-start text-sm-end">
+      <div class="row">
+        <div class="col-12 text-start text-sm-end">
+          <button class="btn-secondary text-nowrap">
+            <i class="d-none d-sm-inline-block fi fi-rr-document text-white"></i>&nbsp;
+            <span>Save as Draft</span>
+          </button>&nbsp;
+          <button class="btn-primary mt-2 mt-sm-0 text-nowrap">
+            <i class="d-none d-sm-inline-block fi fi-rr-document text-white"></i>&nbsp;
+            <span>Create Invoice</span>
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="row mt-3">
+    <div class="col-12 col-sm-8">
+      <div class="row">
+        <div class="col-12">
+          <ngx-invoice-detail [invoiceFormGroup]="invoiceFormGroup"></ngx-invoice-detail>
+        </div>
+        <div class="col-12">
+          <ngx-invoice-item-detail [invoiceItemFormGroup]="invoiceFormGroup" ></ngx-invoice-item-detail>
+        </div>
+      </div>
+    </div>
+    <div class="col-12 col-sm-4"></div>
+  </div>
+</section>
