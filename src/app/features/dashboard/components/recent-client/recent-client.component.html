@@ -11,24 +11,23 @@
         </div>
         <div class="row mt-2">
             @for (item of clients(); track item.id) {
-            <div class="col-6 mt-2">
+            <div class="col-12 col-md-6 mt-2">
                 <ngx-card [config]="{width:'100%'}">
-                    <div class="client-card">
-                        <span>
+                    <div class="row">
+                        <div class="col-6">
                             <mat-chip class="chip-complete">{{item.name.substring(0,2)}}</mat-chip>
-                        </span>
-                        <span>
-                            <div>{{item.name}}</div>
-                            <div>{{item.gstin}}</div>
-                        </span>
-                        <span class="text-link">
+                        </div>
+                        <div class="col-6 text-end text-md-center">
+                            <div class="text-wrap">{{item.name}}</div>
+                            <div class="text-wrap gst-number">{{item.gstin}}</div>
+                        </div>
+                        <div class="col-12 text-link ">
                             {{item.state}}
-                        </span>
+                        </div>
                     </div>
                 </ngx-card>
             </div>
             }
         </div>
-
     </ngx-card>
 </section>

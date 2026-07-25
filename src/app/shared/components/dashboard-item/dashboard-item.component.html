@@ -1,6 +1,6 @@
 <section class="dashboard-item">
     @if (item) {
-    <ngx-card>
+    <ngx-card [config]="{width:'100%'}">
         <div class="d-flex align-items-center justify-content-center gap-2 text-muted small-text">
             <i *ngIf="item.type == constants.dashboardItemType.total" class="fi fi-rr-document"></i>
             <i *ngIf="item.type == constants.dashboardItemType.unpaid" class="fi fi-rr-clock-five"></i>

@@ -3,13 +3,9 @@
     align-items: center;
     justify-content: space-between;
     gap: 12px;
-    > span:nth-child(2) {
-        > div:first-child {
-        }
+}
 
-        > div:last-child {
+ .gst-number{
             font-size: 11px;
             color: var(--app-muted);
         }
-    }
-}

@@ -1,16 +1,22 @@
-<section class="pt-4 d-flex gap-2 justify-content-center flex-column">
-    <div *ngIf="isModelLoaded()" class="d-flex gap-2 justify-content-center">
-        @for (item of dashboardSummary().dashboardItems; track item.type) {
-        <ngx-dashboard-item [item]="item"></ngx-dashboard-item>
-        }
-    </div>
-    <ngx-recent-invoice></ngx-recent-invoice>
-    <div class="row">
-        <div class="col-8">
-            <ngx-recent-client></ngx-recent-client>
+<section *ngIf="isModelLoaded()" class="pt-4 row gap-2">
+    <div class="col-12">
+        <div class="row text-center">
+            @for (item of dashboardSummary().dashboardItems; track item.type) {
+            <ngx-dashboard-item class="col-12 col-md-3 mt-2 mt-md-0" [item]="item"></ngx-dashboard-item>
+            }
         </div>
-        <div class="col-4">
-            <ngx-overall-summary [data]="dashboardSummary()?.overallMonthSummary"></ngx-overall-summary>
+    </div>
+    <div class="col-12">
+        <ngx-recent-invoice></ngx-recent-invoice>
+    </div>
+    <div class="col-12">
+        <div class="row">
+            <div class="col-12 col-md-8 ">
+                <ngx-recent-client></ngx-recent-client>
+            </div>
+            <div class="mt-2 mt-md-0 col-12 col-md-4">
+                <ngx-overall-summary [data]="dashboardSummary()?.overallMonthSummary"></ngx-overall-summary>
+            </div>
         </div>
     </div>
 </section>
