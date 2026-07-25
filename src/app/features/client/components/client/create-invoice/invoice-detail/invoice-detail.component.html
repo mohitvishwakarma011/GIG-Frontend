@@ -2,31 +2,44 @@
     <form [formGroup]="invoiceFormGroup">
         <ngx-card [config]="{width:'100%'}">
             <div class="row">
-                <div class="col-12 text-orange mb-3">
-                    Invoice Details
+                <div class="col-12 text-orange mb-4">
+                    <h3 class="fw-bold fs-18">Invoice Details</h3>
                 </div>
-                <div class="col-12 col-sm-6">
-                    <mat-form-field appearance="outline">
+                <div class="col-12 col-sm-6 col-lg-4">
+                    <mat-form-field appearance="outline" class="w-100">
                         <mat-label>Client</mat-label>
                         <mat-select [formControlName]="InvoiceFormKey.ClientId">
                             @for (client of clienOptions(); track client) {
                             <mat-option [value]="client.id">{{client.name}}</mat-option>
                             }
                         </mat-select>
+                        <mat-error *ngIf="invoiceFormGroup.get(InvoiceFormKey.ClientId)?.hasError('required')">
+                            Client is required
+                        </mat-error>
                     </mat-form-field>
                 </div>
-                <div class="col-12 col-sm-6">
-                    <mat-form-field appearance="outline">
+                <div class="col-12 col-sm-6 col-lg-4">
+                    <mat-form-field appearance="outline" class="w-100">
                         <mat-label>Due Date</mat-label>
                         <input matInput [matDatepicker]="picker" [formControlName]="InvoiceFormKey.DueDate" />
                         <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
                         <mat-datepicker #picker></mat-datepicker>
+                        <mat-error *ngIf="invoiceFormGroup.get(InvoiceFormKey.DueDate)?.hasError('required')">
+                            Due Date is required
+                        </mat-error>
                     </mat-form-field>
                 </div>
-                <div>
+                <div class="col-12">
                     <mat-form-field appearance="outline" class="w-100">
-                        <mat-label class="text-wrap">Add instructions or notes...</mat-label>
-                        <textarea matInput rows="4" [formControlName]="InvoiceFormKey.Notes"></textarea>
+                        <mat-label>Add instructions or notes...</mat-label>
+                        <textarea matInput rows="5" [formControlName]="InvoiceFormKey.Notes" 
+                                  placeholder="Enter any special instructions or additional notes for this invoice..."></textarea>
+                        <mat-hint *ngIf="invoiceFormGroup.get(InvoiceFormKey.Notes)?.value?.length" align="end">
+                            {{ (500 - (invoiceFormGroup.get(InvoiceFormKey.Notes)?.value?.length || 0)) }} characters left
+                        </mat-hint>
+                        <mat-error *ngIf="invoiceFormGroup.get(InvoiceFormKey.Notes)?.hasError('maxlength')">
+                            Notes cannot exceed 500 characters
+                        </mat-error>
                     </mat-form-field>
                 </div>
             </div>

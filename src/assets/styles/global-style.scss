@@ -148,10 +148,12 @@ body {
   cursor: pointer;
   transition: all 0.25s ease;
   box-shadow: 0 8px 20px rgba(63, 57, 51, 0.25);
-  .fi{
+
+  .fi {
     margin-top: 4px;
     font-size: 14px !important;
-    &:hover{
+
+    &:hover {
       color: white !important;
     }
   }
@@ -185,11 +187,13 @@ body {
   cursor: pointer;
   transition: all 0.25s ease;
   box-shadow: 0 8px 20px rgba(63, 57, 51, 0.25);
-  .fi{
+
+  .fi {
     color: #FF7300 !important;
     margin-top: 4px;
     font-size: 14px !important;
-    &:hover{
+
+    &:hover {
       color: white !important;
     }
   }
@@ -234,9 +238,9 @@ mat-form-field[appearance="outline"] {
     background-color: var(--app-transparent-bg, rgba(248, 245, 236, 0.35)) !important;
     backdrop-filter: blur(var(--default-blur, 8px)) !important;
     -webkit-backdrop-filter: blur(var(--default-blur, 8px)) !important;
-    transition: background-color 0.25s ease, box-shadow 0.25s ease !important;
-    border-radius: 10px !important;
-    padding: 0 14px !important;
+    transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1) !important;
+    border-radius: 12px !important;
+    padding: 0 16px !important;
   }
 
   .mdc-notched-outline__leading,
@@ -248,9 +252,11 @@ mat-form-field[appearance="outline"] {
 
   .mdc-floating-label {
     color: var(--muted-foreground, #6B7280) !important;
+    font-size: 14px !important;
+    font-weight: 500 !important;
   }
 
-  &:hover {
+  &:hover:not(.mat-form-field-invalid) {
     .mat-mdc-text-field-wrapper {
       background-color: rgba(248, 245, 236, 0.55) !important;
     }
@@ -258,14 +264,14 @@ mat-form-field[appearance="outline"] {
     .mdc-notched-outline__leading,
     .mdc-notched-outline__notch,
     .mdc-notched-outline__trailing {
-      border-color: var(--primary, #2A2F3D) !important;
+      border-color: #9B8B75 !important;
     }
   }
 
   &.mat-form-field-focused {
     .mat-mdc-text-field-wrapper {
-      background-color: rgba(248, 245, 236, 0.75) !important;
-      box-shadow: var(--default-box-shadow, 0 4px 30px rgba(0, 0, 0, 0.03)) !important;
+      background-color: rgba(248, 245, 236, 0.8) !important;
+      box-shadow: 0 0 0 3px rgba(62, 58, 140, 0.1), var(--default-box-shadow, 0 4px 30px rgba(0, 0, 0, 0.03)) !important;
     }
 
     .mdc-notched-outline__leading,
@@ -277,12 +283,25 @@ mat-form-field[appearance="outline"] {
 
     .mdc-floating-label {
       color: var(--app-stamp, #3E3A8C) !important;
+      font-weight: 600 !important;
     }
   }
 
-  input.mat-mdc-input-element {
+  input.mat-mdc-input-element,
+  textarea.mat-mdc-input-element {
     color: var(--app-text-primary, #23262E) !important;
-    font-weight: 500;
+    font-weight: 500 !important;
+    letter-spacing: 0.3px;
+  }
+
+  textarea.mat-mdc-input-element {
+    resize: vertical !important;
+    font-size: 14px !important;
+    line-height: 1.6 !important;
+  }
+
+  .mat-mdc-form-field-error-wrapper {
+    margin-top: 8px !important;
   }
 
   &.mat-form-field-invalid {
@@ -297,9 +316,37 @@ mat-form-field[appearance="outline"] {
       color: var(--destructive, #DC2626) !important;
     }
 
+    &:hover .mat-mdc-text-field-wrapper {
+      background-color: rgba(220, 38, 38, 0.05) !important;
+    }
+
     mat-error {
       color: var(--destructive, #DC2626);
+      font-size: 12px !important;
     }
+  }
+}
+
+// Material Select Styling
+mat-select .mat-mdc-select-trigger {
+  display: flex;
+  align-items: center;
+  font-weight: 500;
+}
+
+.mat-mdc-select-panel {
+  .mat-mdc-optgroup-label,
+  .mat-mdc-option {
+    font-weight: 500;
+  }
+
+  .mat-mdc-option:hover {
+    background-color: rgba(248, 245, 236, 0.5) !important;
+  }
+
+  .mat-mdc-option.mat-selected {
+    background-color: rgba(62, 58, 140, 0.1) !important;
+    color: var(--app-stamp, #3E3A8C) !important;
   }
 }
 
@@ -402,6 +449,19 @@ mat-form-field[appearance="outline"] {
 
 .fs-18 {
   font-size: 18px !important;
+}
+
+//Font Weight
+.fw-bold {
+  font-weight: 700 !important;
+}
+
+.fw-semibold {
+  font-weight: 600 !important;
+}
+
+.fw-medium {
+  font-weight: 500 !important;
 }
 
 //Text Colors
@@ -510,4 +570,66 @@ thead {
 th {
   font-size: 12px;
   font-weight: normal;
+}
+
+//Form Fields
+.mdc-label {
+  margin-bottom: 0px !important;
+}
+
+.mat-mdc-form-field {
+  width: 100%;
+  --mat-form-field-container-height: 46px !important;
+  --mat-form-field-container-vertical-padding: 12px;
+}
+
+.mdc-text-field--outlined {
+  --mdc-outlined-text-field-container-shape: 8px;
+  --mdc-outlined-text-field-outline-color: var(--app-gradient);
+  --mdc-outlined-text-field-label-text-color: var(--text-orange);
+}
+
+.border-none .mdc-text-field--outlined {
+  --mdc-outlined-text-field-outline-color: transparent;
+  --mdc-outlined-text-field-hover-outline-color: transparent;
+  --mdc-outlined-text-field-focus-outline-color: transparent;
+  --mdc-outlined-text-field-label-text-color: transparent;
+  --mdc-outlined-text-field-error-outline-color: transparent;
+  --mdc-outlined-text-field-error-focus-outline-color: transparent;
+  --mdc-outlined-text-field-error-hover-outline-color: transparent;
+}
+
+.mdc-floating-label--required:not(.mdc-floating-label--hide-required-marker)::after {
+  color: #FF4949;
+}
+
+.mat-pseudo-checkbox-minimal.mat-pseudo-checkbox-checked::after {
+  display: none;
+}
+
+.mat-pseudo-checkbox {
+  width: 16px !important;
+  height: 16px !important;
+  border-radius: 4px !important;
+}
+
+.mat-pseudo-checkbox-full {
+  border-color: var(--brand-black-20) !important;
+  border-width: 1px !important;
+}
+
+.textarea .mat-mdc-text-field-wrapper {
+  min-height: 48px !important;
+  height: auto !important;
+}
+
+textarea .mat-mdc-form-field-input-control.mdc-text-field__input {
+  min-height: 48px !important;
+}
+
+
+.textarea .mdc-text-field--no-label:not(.mdc-text-field--textarea) .textarea.mat-mdc-form-field-input-control.mdc-text-field__input,
+.textarea .mat-mdc-text-field-wrapper .mat-mdc-form-field-input-control {
+  min-height: 48px !important;
+  height: auto;
 }
