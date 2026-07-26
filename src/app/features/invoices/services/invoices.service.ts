@@ -22,6 +22,13 @@ export class InvoicesService {
             ))
     }
 
+    public downloadInvoice(invoiceId: number): Observable<Blob> {
+        return this.http.post(`${this.apiUrl}/pdf`, { invoiceId }, { responseType: 'blob' });
+    }
+
+    public deleteInvoice(invoiceId: number): Observable<void> {
+        return this.http.delete<void>(`${this.apiUrl}/${invoiceId}`);
+    }
 }
 
 const toInvoiceListDto = (data: IInvoiceListRaw): IInvoiceListDto => {
