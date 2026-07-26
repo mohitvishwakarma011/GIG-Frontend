@@ -1,0 +1,15 @@
+.section-title {
+  font-weight: 600;
+  margin-bottom: 12px;
+}
+
+.payment-row {
+  display: flex;
+  justify-content: space-between;
+  padding: 10px 0;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.08);
+}
+
+.payment-row:last-child {
+  border-bottom: none;
+}

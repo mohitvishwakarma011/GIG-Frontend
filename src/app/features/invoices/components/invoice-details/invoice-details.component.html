@@ -1,0 +1,33 @@
+<!-- <section *ngIf="isModelLoaded()">
+  <ngx-card [config]="{ width: '100%', padding: '20px' }">
+    <div class="dialog-header d-flex align-items-center justify-content-between">
+      <div>
+        <h2>Invoice {{ invoice?.invoiceNumber }}</h2>
+        <p class="text-muted">{{ invoice?.clientName }} • Due {{ invoice?.dueDate | date:'dd MMM yyyy' }}</p>
+      </div>
+      <button mat-icon-button (click)="close()" aria-label="Close dialog">
+        <i class="fi fi-rr-cross-circle"></i>
+      </button>
+    </div>
+
+    <div class="dialog-body">
+      <div class="summary-grid">
+        <div>
+          <strong>Invoice Date</strong>
+          <div>{{ invoice?.createdOn | date:'dd MMM yyyy' }}</div>
+        </div>
+        <div>
+          <strong>Status</strong>
+          <div>{{ invoice?.status }}</div>
+        </div>
+        <div>
+          <strong>Total</strong>
+          <div>{{ invoice?.total | currency:'INR' }}</div>
+        </div>
+      </div>
+
+      <app-invoice-line-items [lineItems]="invoice?.lineItems"></app-invoice-line-items>
+      <app-invoice-payment [payment]="invoice?.payment"></app-invoice-payment>
+    </div>
+  </ngx-card>
+</section> -->

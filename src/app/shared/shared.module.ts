@@ -19,6 +19,7 @@ import { CardComponent } from "./components/card/card.component";
 import { DashboardItemComponent } from "./components/dashboard-item/dashboard-item.component";
 import { NavbarComponent } from "./components/navbar/navbar.component";
 import { ResourceNotFoundComponent } from './components/resource-not-found/resource-not-found.component';
+import { UserInitialComponent } from './components/user-inital/user-initial.component';
 import { LoadingObserverService } from "./services/loading-observer.service";
 import { provideNativeDateAdapter } from "@angular/material/core";
 @NgModule({
@@ -44,7 +45,8 @@ import { provideNativeDateAdapter } from "@angular/material/core";
         ResourceNotFoundComponent,
         NavbarComponent,
         CardComponent,
-        DashboardItemComponent
+        DashboardItemComponent,
+        UserInitialComponent
     ],
     exports: [
         LayoutComponent,
@@ -60,6 +62,7 @@ import { provideNativeDateAdapter } from "@angular/material/core";
         MatDialogModule,
         CardComponent,
         DashboardItemComponent,
+        UserInitialComponent,
         MatTableModule,
         MatChipsModule,
         LoadingBarModule,

@@ -1,0 +1,21 @@
+.dialog-header {
+  gap: 16px;
+}
+
+.summary-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 16px;
+  margin-bottom: 24px;
+}
+
+.summary-grid div {
+  background: var(--app-transparent-bg, rgba(248, 245, 236, 0.35));
+  border-radius: 12px;
+  padding: 16px;
+}
+
+.dialog-body {
+  display: grid;
+  gap: 20px;
+}

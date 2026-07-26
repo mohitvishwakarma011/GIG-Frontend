@@ -20,6 +20,10 @@ const routes: Routes = [
     path: 'client',
     loadChildren: () => import('./features/client/client.module').then(m => m.ClientModule)
   },
+  {
+    path: 'invoices',
+    loadChildren: () => import('./features/invoices/invoices.module').then(m => m.InvoicesModule)
+  },
   { path: '**', component: ResourceNotFoundComponent }
 ];
 

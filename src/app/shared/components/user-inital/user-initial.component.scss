@@ -1,0 +1,11 @@
+.user-initial {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  font-weight: 600;
+  font-size: calc(1em - 2px);
+  text-transform: uppercase;
+  overflow: hidden;
+  user-select: none;
+}
