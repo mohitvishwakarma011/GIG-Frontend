@@ -24,7 +24,7 @@ export class InvoiceDetailsComponent {
     }
 
     protected close(): void {
-        this._dialogRef.close();
+        this._dialogRef.close();    
     }
 
     private _loadInvoice(): void {
